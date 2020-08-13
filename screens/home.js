@@ -7,7 +7,6 @@ import Navigation from "../components/navigationTab";
 import { Actions } from 'react-native-router-flux';
 import * as Font from 'expo-font';
 
-
 const { width, height } = Dimensions.get("window");
 
 class App extends React.Component {
@@ -427,7 +426,6 @@ class App extends React.Component {
           </Grid>
           </View>
         </ScrollView>
-
         <View style={styles.cardOverlayBottom}>
         <View
           style={{
