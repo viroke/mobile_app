@@ -34,13 +34,13 @@ class ScrollViewExample extends Component {
   }
   return (
     <ScrollView>
+    <StatusBar style="auto" />
     <View style={styles.container}>
     <TouchableOpacity  onPress = {goToGetHome}>
     <AntDesign style={styles.icon} name="arrowleft" size={24}/>
     </TouchableOpacity>
       <Text style={styles.heading}>Complete Profile</Text>
       <Text style={styles.subHeading}>Register via your company email to connect with the people of your company.</Text>
-      <StatusBar style="auto" />
       <UploadImage style="auto" />
       <Inputs style="auto" />
 
@@ -62,12 +62,11 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: 'bold',
     fontSize: 26,
-    marginTop:10,
+    marginTop:20,
     lineHeight: 30,
     margin: 20,
     letterSpacing: -0.8,
     fontFamily:'WorkSansMedium',
-    opacity:0.85,
   },
 
   subHeading:{
@@ -75,15 +74,16 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: 'normal',
     margin: 20,
+    marginTop:10,
     lineHeight: 16,
     fontSize: 14,
-    letterSpacing: 1,
-    fontFamily:'WorkSansLight',
+    letterSpacing: -0.3,
+    fontFamily:'WorkSansMedium',
   },
   icon:{
     color:'#2F80ED',
-    margin:20,
-    marginTop:50,
+    marginLeft:20,
+    marginTop:0,
   },
 });
 

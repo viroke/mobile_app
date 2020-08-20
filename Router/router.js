@@ -7,6 +7,8 @@ import Onboarding from '../screens/onboarding.js';
 import Session from '../screens/sessionStart.js';
 import Profile from '../screens/profilePage.js';
 import Discover from '../screens/discover.js';
+import Notification from '../screens/notification.js';
+import Wallet from '../screens/wallet.js';
 
 const Routes = () => (
    <Router>
@@ -18,6 +20,8 @@ const Routes = () => (
          <Scene key = "session" component = {Session} title = "Session"  hideNavBar = {true}/>
          <Scene key = "profile" component = {Profile} title = "Profile"  hideNavBar = {true}/>
          <Scene key = "discover" component = {Discover} title = "Discover"  hideNavBar = {true}/>
+         <Scene key = "notification" component = {Notification} title = "Notification"  hideNavBar = {true}/>
+         <Scene key = "wallet" component = {Wallet} title = "Wallet"  hideNavBar = {true}/>
       </Scene>
    </Router>
 )

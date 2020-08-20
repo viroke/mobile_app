@@ -40,8 +40,8 @@ class Discover extends React.Component {
             Actions.session()
            }
 
-           const  goTodiscover = () => {
-            Actions.discover()
+           const  goToNotification = () => {
+            Actions.notification()
          }
             if (!this.state.fontLoaded) {
               return null; // render some progress indicator
@@ -57,12 +57,15 @@ class Discover extends React.Component {
                 <View style={styles.search}>
                 <Searchbar
                 style={styles.searchTextField}
-                placeholder="Type to search"
-                />
+                iconColor="#ffff"
+                placeholderTextColor="#ffff"
+                placeholder="Type to search"/>
                 </View>
+                <TouchableOpacity onPress = {goToNotification}>
                 <Image source = {require('../assets/images/Rectangle24.png')}
                 style={styles.topImage}/>
-                <View style={{position:'absolute', top:295, elevation:3, }}>
+                </TouchableOpacity>
+                <View style={{position:'absolute', top:310, elevation:3, }}>
                 <Text style={styles.name}>
                 Kristin Watson <Image source = {require('../assets/images/Vector.png')}
                 style={{width:10, height:10}}/></Text>
@@ -94,8 +97,7 @@ class Discover extends React.Component {
                 <Text style={{
                     width: 49,
                     height: 21,
-                    left: 297,
-                    top: 319,
+                    left: 100,
                     fontStyle: 'normal',
                     fontWeight: 'bold',
                     fontSize: 18,
@@ -103,11 +105,156 @@ class Discover extends React.Component {
                     textAlign: 'center',
                     letterSpacing: -0.8,
                     color: '#FFFFFF',
-                }}> N 250</Text>
+                }}> <Text>&#8358;</Text> 250</Text>
                 </View>
                 </View>
                 </View>
 
+                <View>
+                <Image source = {require('../assets/images/Rectangle17.png')}
+                style={{
+                  width: 150,
+                  height:100,
+                  top:50,
+                  backgroundColor: '#C4C4C4',
+                  borderRadius: 3,
+                  opacity:0.65,
+                  }}/>
+                  <View style={{ backgroundColor: 'transparent', width:150, top:10,height:50,}}>
+                  <Paragraph style={{fontStyle: 'normal',
+                  fontWeight: 'normal',
+                  fontSize: 14,
+                  lineHeight: 13,
+                  letterSpacing: -0.63434,
+                  height: 16,
+                  marginLeft:5,
+                  color: '#FFFFFF',
+                  fontFamily:'WorkSansMedium',
+                  marginTop: 3,
+                 }}>Jerome Bell <Image source = {require('../assets/images/Vector.png')}
+                  style={{width:10, height:10}}/></Paragraph>
+                  <Text style={{
+                    width: 145,
+                    height: 16,
+                    fontFamily: 'WorkSansMedium',
+                    fontStyle: 'normal',
+                    fontWeight: '600',
+                    fontSize: 14,
+                    lineHeight: 16,
+                    marginLeft:5,
+                    letterSpacing: -0.8,
+                    color: '#FFFFFF',
+                  }}>
+                  Session Title Goes here
+                  </Text>
+                  </View>
+
+                  <View style={{backgroundColor: '#454545', padding:5,
+                   position:'absolute', top:50, left:105}}>
+                    <Text style={{color:'#ffff'}}>
+                    <Text>&#8358;</Text>200
+                    </Text>
+                  </View>
+                </View>
+
+                <View style={{position:'relative', left:170, bottom:100,}}>
+                  <TouchableOpacity>
+                  <Card.Cover source = {require('../assets/images/Rectangle18.png')} style={styles.imageCardTwo}/>
+                  <View style={{backgroundColor: '#454545', padding:5,
+                   position:'absolute', bottom:0, left:105}}>
+                    <Text style={{color:'#ffff'}}>
+                    <Text>&#8358;</Text>200
+                    </Text>
+                  </View>
+                  </TouchableOpacity>
+                  <Card.Content>
+                    <Paragraph style={{fontStyle: 'normal',
+                      fontWeight: 'normal',
+                      fontSize: 14,
+                      marginTop:10,
+                      letterSpacing: -0.63434,
+                      marginLeft:5,
+                      color: '#FFFFFF',
+                      fontFamily:'WorkSansMedium',
+                      marginTop: 3,
+                      opacity:0.65}}>Courtney Henry <Image source = {require('../assets/images/Vector.png')}
+                      style={{width:10, height:10}}/></Paragraph>
+
+                      <Text style={{
+                          width: 145,
+                          height: 16,
+                          fontFamily: 'WorkSansMedium',
+                          fontStyle: 'normal',
+                          fontWeight: '600',
+                          fontSize: 14,
+                          lineHeight: 16,
+                          marginLeft:-15,
+                          letterSpacing: -0.8,
+                          color: '#FFFFFF',
+                        }}>
+                      Session Title Goes here
+                      </Text>
+                </Card.Content>
+                </View>
+
+                <View style={{position:'relative', left:1, top:-240, width:150}}>
+                <Card style={{backgroundColor:'#2A2B31' }}>
+                  <TouchableOpacity>
+                  <Card.Cover source = {require('../assets/images/Rectangle25.png')} style={styles.imageCard}/>
+                  <View style={{backgroundColor: '#454545', padding:5,
+                   position:'absolute', bottom:0, left:105}}>
+                    <Text style={{color:'#ffff'}}>
+                    <Text>&#8358;</Text>200
+                    </Text>
+                  </View>
+                  </TouchableOpacity>
+                  <Card.Content>
+                    <Paragraph style={{fontStyle: 'normal',
+                      fontWeight: 'normal',
+                      fontSize: 14,
+                      lineHeight: 13,
+                      letterSpacing: -0.63434,
+                      marginLeft:-10,
+                      color: '#FFFFFF',
+                      fontFamily:'WorkSansMedium',
+                      marginTop: 5,
+                      opacity:0.65}}>Courtney Henry <Image source = {require('../assets/images/Vector.png')}
+                      style={{width:10, height:10}}/></Paragraph>
+
+                      <Text style={{
+                        fontWeight: '600',
+                        fontSize: 14,
+                        lineHeight: 16,
+                        letterSpacing: -0.63434,
+                        color: '#BDBDBD',
+                        marginTop: 3,
+                        marginLeft:-10,
+                        fontSize: 14,
+                        lineHeight: 16,
+                        width: 145,
+                        height: 16,
+                        }}>
+                      Session Title Goes here
+                      </Text>
+                </Card.Content>
+                </Card>
+                </View>
+
+    <View style={{flexDirection: "row", justifyContent: "space-between", bottom:200,}} >
+        <Grid>
+        <Col style={{marginRight:10, borderRadius:10, width:150, }}>
+            <Card style={{backgroundColor:'#2A2B31'}}>
+            <Card.Cover source = {require('../assets/images/discover1.png')} style={styles.imageCardBottom}/>
+          </Card>
+          </Col>
+
+          <Col style={{marginLeft:5, borderRadius:10, width:150, }}>
+            <Card style={{backgroundColor:'#2A2B31'}}>
+            <Card.Cover source = {require('../assets/images/discover2.png')} style={styles.imageCardBottom}/>
+          </Card>
+          </Col>
+          </Grid>
+          </View>
 
 
                  </View>
@@ -151,7 +298,7 @@ const styles = StyleSheet.create({
 
   topImage:{
     width: 320,
-    height: 250,
+    height: 280,
     top:20,
     borderRadius: 5,
     opacity:0.75,
@@ -159,6 +306,7 @@ const styles = StyleSheet.create({
 
   search:{
       marginTop:15,
+      color:'#FFFF'
   },
 
   searchTextField:{
@@ -182,9 +330,26 @@ const styles = StyleSheet.create({
     marginTop: 3,
     left:30,
     opacity:.75
-  }
+  },
 
+  imageCard: {
+    height: 80,
+    backgroundColor:'#2A2B31',
+  },
 
+  imageCardTwo: {
+    width: 150,
+    height:220,
+    backgroundColor: '#C4C4C4',
+    borderRadius: 3,
+  },
+
+  imageCardBottom: {
+    height: 127,
+    borderRadius:4,
+    backgroundColor:'#2A2B31',
+    opacity:0.70,
+  },
 
 
 });

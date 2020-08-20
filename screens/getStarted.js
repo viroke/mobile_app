@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
 
   input: {
     margin: 20,
-    height: 40,
+    height: 50,
     borderWidth: 1,
     borderRadius: 3,
     fontStyle: 'normal',
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#2F80ED',
     padding: 10,
     margin: 20,
-    height: 40,
+    height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     opacity:0.65,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     fontSize: 14,
     letterSpacing: 1,
-    opacity: 0.8,
+    opacity: 0.9,
     fontFamily:'WorkSansLight',
   },
   icon:{
