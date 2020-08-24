@@ -426,6 +426,7 @@ class App extends React.Component {
           </Grid>
           </View>
         </ScrollView>
+
         <View style={styles.cardOverlayBottom}>
         <View
           style={{
@@ -467,7 +468,9 @@ class App extends React.Component {
           }}><Text>&#8358;</Text>29,000</Text>
           </View>
       </View>
-          </View>
+      </View>
+
+
         </View>
 
 
