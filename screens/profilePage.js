@@ -12,7 +12,7 @@ import { Actions } from 'react-native-router-flux';
 
 const { width, height } = Dimensions.get("window");
 
-class App extends React.Component {
+class Profile extends React.Component {
     state = {
         fontLoaded: false,
       };
@@ -32,62 +32,77 @@ class App extends React.Component {
       }
 
       render() {
-      const  returnBack = () => {
-        Actions.home()
-       }
-       const  goToProfile = () => {
-        Actions.profile()
-     }
-        if (!this.state.fontLoaded) {
-          return null; // render some progress indicator
-        }
-        return (
-            <View style={styles.body}>
-            <ScrollView>
-            <StatusBar barStyle="light-content" />
-            <Image source = {require('../assets/images/Rectangle8.png')}
-             style={styles.topImage}/>
-            <TouchableOpacity style={{position:'absolute', left:10,elevation:3 }} onPress = {returnBack}>
-            <AntDesign style={styles.icon} name="arrowleft" size={24}/>
-            </TouchableOpacity>
-            <View style={{position:'absolute', left:10,elevation:3,
-             top:185, width:300,height: 28, }}>
-            <Text style={styles.heading}>Exclusive Session - 1:1</Text>
-            </View>
-            <View style={styles.overlay}>
-             <Title style={styles.overlayText}>02:45 PM <Text style={{
-                 fontFamily: 'WorkSansMedium',
-                 fontStyle: 'normal',
-                 fontWeight: 'normal',
-                 fontSize: 12,
-                 lineHeight: 14,
-                 letterSpacing: -0.8,
-                 color: '#535D7E',
-             }}>Today</Text></Title>
-            </View>
-            <View style={styles.container}>
-            <View>
-            <Text style={styles.details}>Session Details</Text>
-            </View>
-            <View>
-            <Text style={styles.textDetails}>A quick and exclusive 10mins session with olamide, you can sak me anything and talk about anything. I’ll be all ready to answer.</Text>
-            </View>
-            <View>
-            <Text style={styles.price}>Entry price starting at: <Text>&#8358;</Text>200</Text>
-            </View>
-             <View style={styles.buttonContainer}>
-              <TouchableOpacity
-               style = {styles.submitButton}
-               onPress = {goToProfile}
-              >
-              <Text style={{textTransform: 'capitalize',
-               color:'#FFF', letterSpacing:-0.237877,marginTop:-5}}> Join </Text>
-               {/* <Text style={styles.join}> Join </Text> */}
-              </TouchableOpacity>
+        const  returnBack = () => {
+            Actions.session()
+           }
+           const  goTodiscover = () => {
+            Actions.discover()
+         }
+            if (!this.state.fontLoaded) {
+              return null; // render some progress indicator
+            }
+            return (
+                <View style={styles.body}>
+                 <ScrollView>
+                <StatusBar barStyle="light-content" />
+                <Image source = {require('../assets/images/Rectangle11.png')}
+                style={styles.topImage}/>
+                 <TouchableOpacity style={{position:'absolute', left:10,elevation:3 }}
+                 onPress = {returnBack}>
+                <AntDesign style={styles.icon} name="arrowleft" size={24}/>
+                </TouchableOpacity>
+                <View style={{position:'absolute', left:10,elevation:3,
+                top:185, width:300,height: 28, }}>
+                <Paragraph style={styles.heading}
+                >Leslie Alexander</Paragraph>
+                <Image source = {require('../assets/images/Vector.png')}
+                style={{width:25, height:25, position:'absolute',right:-10, top:20,}}/>
+                </View>
+                <View style={{position:'absolute', left:10, elevation:3,}}>
+                    <Text style={styles.details}>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint dolor fit manase butaric alomina minta subamino...</Text>
+                </View>
+
+
+                <View style={{flexDirection: "row", justifyContent: "space-between",
+                position:'absolute', top:300, }} >
+                <View style={{marginRight:2, }}>
+                <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                style = {styles.submitButton}
+                onPress = {goTodiscover}>
+                <Text style={{textTransform: 'capitalize',
+                color:'#FFF', letterSpacing:-0.237877,marginTop:-5}}> Subscribe </Text>
+                </TouchableOpacity>
               </View>
+                </View>
 
+                <View style={{marginRight:10, }}>
+                <Image source = {require('../assets/images/spotify.png')}
+                style={{width:40, height:40, top:10,borderRadius: 4,opacity:0.95,}}/>
+                </View>
 
-      <View>
+                <View style={{marginRight:10, }}>
+                <Image source = {require('../assets/images/music.png')}
+                style={{width:40, height:40, top:10,borderRadius: 4,opacity:0.85,}}/>
+                </View>
+
+                <View style={{marginRight:3, }}>
+                <Image source = {require('../assets/images/video.png')}
+                style={{width:40, height:40, top:10,
+                    borderRadius: 4,opacity:0.85,}}/>
+                </View>
+
+                <TouchableOpacity>
+                <View style={{marginLeft:30, top:20 }}>
+                <Image source = {require('../assets/images/life.png')}
+                style={{width:25, height:22, opacity:0.85}}/>
+                </View>
+                </TouchableOpacity>
+
+               </View>
+
+ <View style={{position:'relative', top:-80, elevation:3,}}>
+        <View>
         <Text style={{
           fontStyle: 'normal',
           fontWeight: '600',
@@ -106,7 +121,7 @@ class App extends React.Component {
   {/* card scroll view */}
 
     <ScrollView
-            style={{ flexDirection: "row", padding: 10, marginBottom:80, }}
+            style={{ flexDirection: "row", padding: 10, }}
             scrollEventThrottle={16}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -117,7 +132,7 @@ class App extends React.Component {
         <Col style={{marginLeft:5, borderRadius:10, width:200, }}>
             <Card style={{backgroundColor:'#2A2B31'}}>
             <TouchableOpacity>
-            <Card.Cover source = {require('../assets/images/session-mask.png')} style={styles.imageCard}/>
+            <Card.Cover source = {require('../assets/images/profile-card.png')} style={styles.imageCard}/>
             </TouchableOpacity>
             <Card.Content>
               <Title style={styles.cardTitle}>Career Talk Expo</Title>
@@ -152,6 +167,7 @@ class App extends React.Component {
                   width:70,
                   marginTop:10,
                   opacity:0.60,}}
+                  onPress = {goTodiscover}
               >
                 <Text style={{textTransform: 'capitalize',
                 color:'#fff', letterSpacing:-0.237877,marginTop:-5}}> Join </Text>
@@ -188,11 +204,9 @@ class App extends React.Component {
          </Col>
 
 
-
-
             <Col style={{marginLeft:5, borderRadius:10, width:200 }}>
             <Card style={{backgroundColor:'#2A2B31'}}>
-            <Card.Cover source = {require('../assets/images/session-mask2.png')} style={styles.imageCard}/>
+            <Card.Cover source = {require('../assets/images/profile-card2.png')} style={styles.imageCard}/>
             <Card.Content>
               <Title style={styles.cardTitle}>Career Talk Expo</Title>
               <Grid style={{marginLeft:-8,}}>
@@ -321,21 +335,16 @@ class App extends React.Component {
         </View>
 
         </ScrollView>
+    </View>
 
-
-           </View>
-           </ScrollView>
-           <Navigation activeTab="home" />
-           </View>
-
-
-
-         )}
-
+    </ScrollView>
+    <Navigation activeTab="home" />
+     </View>
+            )}
 
 }
 
-export default App
+export default Profile
 
 const styles = StyleSheet.create({
   body: {
@@ -355,105 +364,52 @@ const styles = StyleSheet.create({
 
   topImage:{
     width: 375,
-    height: 268,
+    height: 445,
     borderRadius: 5,
     opacity:0.75,
   },
 
   heading:{
-    color:'#FFFFFF',
+    fontFamily:'WorkSansMedium',
+    width: 280,
+    height: 42,
+    left: 0,
+    top: 0,
     fontStyle: 'normal',
     fontWeight: '600',
-    fontSize: 23,
-    margin: 20,
-    letterSpacing: -0.85,
-    fontFamily:'WorkSans',
-    lineHeight: 28,
-    opacity:0.85,
-    width: 247,
-    height: 28,
+    fontSize: 36,
+    lineHeight: 42,
+    letterSpacing: -0.8,
+    color: '#FFFFFF',
+    alignSelf: 'center',
+    marginTop: 6,
+    marginBottom: 6,
   },
 
   icon:{
     color:'#FFF',
     margin:20,
+    marginLeft:10,
     marginTop:50,
   },
 
   details:{
-    color:'#FFF',
-    width: 150,
-    height: 16,
-    left: 20,
-    fontFamily: 'WorkSans',
-    fontStyle: 'normal',
-    fontWeight: '600',
-    fontSize: 16,
-    lineHeight: 16,
-    letterSpacing: -0.4,
-    color: '#BDBDBD',
-    opacity:0.75
-  },
-
-   textDetails:{
-    color:'#FFF',
-    width: width-55,
-    left: 24,
     fontFamily: 'WorkSansMedium',
     fontStyle: 'normal',
-    fontWeight: '600',
+    top:250,
+    width: 271,
+    height: 100,
+    left: 10,
+    fontWeight: 'normal',
     fontSize: 12,
-    letterSpacing: -0.8,
-    color: '#A9AEBE',
-    opacity:0.75,
-    marginTop:10,
     lineHeight: 15,
-  },
-
-  overlay:{
-    position:'absolute',
-    top:225,
-    right:28,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 4,
-    width:65,
-    height:50,
-    elevation: 3,
-  },
-
-  overlayText:{
-    fontStyle: 'normal',
-    fontWeight: '600',
-    fontSize: 12,
-    lineHeight: 14,
-    color: '#535D7E',
-    textAlign:'center',
-    marginTop:7,
-    opacity:0.65,
-    fontFamily:'WorkSansSemiBold',
-    letterSpacing: -0.8,
-    width: 63,
-    height: 45,
+    color: 'rgba(255, 255, 255, 0.8)',
   },
 
   buttonContainer: {
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 10
-  },
-
-  price:{
-    width: 178,
-    left: 24,
-    fontFamily:'WorkSansMedium',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: 14,
-    lineHeight: 16,
-    letterSpacing: -0.8,
-    color: '#E0E0E0',
-    marginTop:15,
-    opacity:0.75,
   },
 
   submitButton: {
@@ -466,26 +422,10 @@ const styles = StyleSheet.create({
     marginTop:10,
     marginLeft:10,
     borderRadius: 4,
+    paddingHorizontal: 20
  },
 
-  join:{
-    color:'#fff',
-    fontStyle: 'normal',
-    fontWeight: '700',
-    fontSize: 17,
-    margin: 10,
-    alignItems:'center',
-    textAlign:'center',
-    justifyContent:'center',
-    lineHeight: 16,
-    fontSize: 14,
-    letterSpacing: -0.3,
-    fontFamily:'WorkSansMedium',
-    elevation:3,
-  },
-
-
-  imageCard: {
+ imageCard: {
     height: 100,
     borderRadius:4,
     backgroundColor:'#2A2B31',
@@ -574,6 +514,7 @@ const styles = StyleSheet.create({
     textAlign:'center',
     marginTop:7,
     opacity:0.65,
-    fontFamily:'WorkSansSemiBold',
-  },
+  }
+
 });
+

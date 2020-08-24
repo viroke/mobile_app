@@ -70,7 +70,7 @@ class App extends React.Component {
           fontFamily: 'WorkSansMedium',
           lineHeight: 14,
           letterSpacing: -0.45,
-          opacity:0.8,
+          opacity:0.85,
         }}> Upcoming</Text>
   </View>
 
@@ -502,7 +502,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.9,
     lineHeight: 28,
     color:'#D3D3D3',
-    opacity:0.8,
     fontFamily:'WorkSans',
   },
 
@@ -523,7 +522,6 @@ const styles = StyleSheet.create({
     height: 82,
     width: 169,
     backgroundColor: 'linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(.jpg)',
-    opacity:0.70,
   },
 
   text: {
@@ -532,13 +530,11 @@ const styles = StyleSheet.create({
     top:45,
     right: 52.27,
     fontStyle: 'normal',
-    fontWeight: '600',
     fontSize: 10,
     letterSpacing: -0.25,
     color: '#E0E0E0',
     elevation: 3,
     fontFamily:'WorkSansMedium',
-    opacity:0.50,
   },
 
 
@@ -546,7 +542,6 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius:4,
     backgroundColor:'#2A2B31',
-    opacity:0.70,
   },
 
   imageCardBottom: {
@@ -587,7 +582,7 @@ const styles = StyleSheet.create({
     height: 66,
     borderColor:'#2F80ED',
     borderRadius: 40,
-    opacity:0.65,
+    opacity:0.90,
   },
 
   sliderImagecol:{
@@ -606,7 +601,7 @@ const styles = StyleSheet.create({
     height: 28,
     textAlign:'center',
     fontFamily:'WorkSansMedium',
-    opacity:0.55,
+    opacity:0.85,
 
   },
 
