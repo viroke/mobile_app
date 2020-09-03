@@ -1,7 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import { View, Text, TouchableOpacity, StatusBar, TextInput, StyleSheet } from 'react-native'
 
-class Inputs extends Component {
+export default function Inputs () {
+   const [loading, setloading] = useState(false);
+   const [Email, setEmail] = useState("yomikolawole@cohit.net");
+   const [password, setPassword] = useState("password");
+
    state = {
       firstName: '',
       lastName: '',
@@ -9,24 +13,27 @@ class Inputs extends Component {
    handleEmail = (text) => {
     this.setState({ Email: text })
    }
-   login = (email) => {
-      alert('Email: ' + email)
+   verify = (value) => {
+      Console.log(value);
    }
-   render() {
+
+   // render() {
       return (
          <View style = {styles.container}>
              <StatusBar barStyle="light-content" />
-            <TextInput style = {styles.input}
-               underlineColorAndroid = "transparent"
-               placeholder = "Email"
-               placeholderTextColor = "#BDBDBD"
-               autoCapitalize = "none"
-               onChangeText = {this.handleEmail}/>
+            <TextInput style={styles.input}
+               underlineColorAndroid="transparent"
+               placeholder="Email"
+               placeholderTextColor="#BDBDBD"
+               autoCapitalize="none"
+               value={Email}
+               onChangeText={(value) => setEmail(value)}
+               />
             
             <TouchableOpacity
                style = {styles.submitButton}
                onPress = {
-                  () => this.login(this.state.email)
+                  () => this.verify(Email)
                }>
                <Text style = {styles.submitButtonText}> Next </Text>
             </TouchableOpacity>
@@ -34,9 +41,8 @@ class Inputs extends Component {
             <Text>Login</Text>
          </View>
       )
-   }
+   // }
 }
-export default Inputs
 
 const styles = StyleSheet.create({
    container: {

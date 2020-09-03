@@ -1,5 +1,5 @@
 import React, {useState, component} from 'react';
-import { View, Text, Image, Button,TouchableOpacity, StyleSheet, Dimensions, StatusBar } from 'react-native';
+import { View, Text, Image, Button, TouchableOpacity, StyleSheet, Dimensions, StatusBar } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
 import { Actions } from 'react-native-router-flux';
 import * as Font from 'expo-font';
@@ -84,7 +84,7 @@ class CutomCarousel extends React.Component {
  return  (
    <View style={styles.container}>
     <StatusBar hidden/>
-    <TouchableOpacity  onPress = {goToStarted}>
+    <TouchableOpacity  onPress={() => Actions.started()}>
     <Text style={styles.skipLabel} >Skip</Text>
     </TouchableOpacity>
       <Image style={styles.boardImage} source={require('../assets/images/group2.png')} />
