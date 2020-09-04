@@ -1,15 +1,8 @@
 import {api, virokeConnect} from './index';
 
-export const LOGIN_USER = params => {
-    if(params.email && params.password){
-
-    }
-}
-
 export async function VERIFY_EMAIL (email, callback, onError) {
     if(email){
         try {
-          console.log(api.BASE_URL);
             let email_exists = await fetch(`${api.BASE_URL}user/check_email`, {
                 method: "POST",
                 headers: {
@@ -29,4 +22,28 @@ export async function VERIFY_EMAIL (email, callback, onError) {
             return false;
         }
     }
+}
+
+export async function LOGIN_USER (body, callback, onError)  {
+  if(body.email && body.password){
+      try {
+          let user = await fetch(`${api.BASE_URL}users/login`, {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(body)
+              });
+
+            user = await user.json();
+            callback && callback(user);
+
+            return user;
+
+      } catch (error) {
+          onError && onError(error);
+          return false;
+      }
+  }
 }

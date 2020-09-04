@@ -1,12 +1,16 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, Text, StatusBar, View,TextInput, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, StatusBar, View,TextInput, Dimensions, 
+  TouchableOpacity, ScrollView, ToastAndroid
+} 
+  from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-import { VERIFY_EMAIL } from '../api/login';
-import Spinner from 'react-native-loading-spinner-overlay';
+import { VERIFY_EMAIL, LOGIN_USER } from '../api/login';
+// import Spinner from 'react-native-loading-spinner-overlay';
 import { Button } from 'react-native-paper';
 import { SimpleAnimation } from 'react-native-simple-animations';
+import { saveToken } from '../store';
 
 const { width, height } = Dimensions.get("window");  
 const passwordDisplay = 'none';
@@ -15,7 +19,7 @@ const emailDisplay = "flex";
 export default Started => {
 
   const [email, setEmail] = useState("koryoesz@gmail.com");
-  const [password, setPassword] = useState("password");
+  const [password, setPassword] = useState("");
   const [isloading, setIsloading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showEmail, setShowEmail] = useState(true);
@@ -35,15 +39,29 @@ export default Started => {
   const onSubmit = async () => {
     setIsloading(true);
 
-    const callback = (response, data) => {
+    const CALLBACK = (response, data) => {
       setIsloading(false);
 
       if (response.error) {
-        // console.log(response.error)
         //  Actions.push("home");
-        passwordDisplay = 'flex';
-        emailDisplay = 'none';
-        console.log("helo")
+        setShowPassword(true);
+        setShowEmail(false);
+      }
+
+      if (!response.success) {
+        let msg = response.errors;
+        setError(msg);
+      }
+    };
+
+    const LOGIN_CALLBACK = (response, data) => {
+      setIsloading(false);
+
+      if (response.code === 200) {
+          saveToken(response.data.bearerToken);
+          Actions.push("home");
+      }else{
+        ToastAndroid.show("Invalid Credentials", ToastAndroid.SHORT);
       }
 
       if (!response.success) {
@@ -57,8 +75,13 @@ export default Started => {
 
       setError("Server Error");
     };
-
-    VERIFY_EMAIL(email, callback, onError);
+    if(!password){
+      VERIFY_EMAIL(email, CALLBACK, onError);
+    }
+    else{
+        var body = { password, email};
+        LOGIN_USER(body, LOGIN_CALLBACK, onError);
+    }
   };
 
   const  goToRegistration = () => {
@@ -70,28 +93,29 @@ export default Started => {
   } else {
       return (
         <ScrollView style={styles.body}>
-            <StatusBar barStyle="light-content"/>
+        <StatusBar barStyle="light-content"/>
         <View style={styles.container}>
         <TouchableOpacity  onPress={goToRegistration}>
         </TouchableOpacity>
           <Text style={styles.heading}>Get Started</Text>
           <Text style={styles.subHeading}>Sign up for new account, enter your email and get started</Text>
               { showEmail ? 
-                <view>
+                // <view>
                   <TextInput style={styles.input}
                     underlineColorAndroid = "transparent"
                     placeholder = "Email"
                     placeholderTextColor = "#BDBDBD"
                     autoCapitalize = "none"
                     value={email}
-                    onChangeText = {(value) => setEmail(value)}/></view> 
+                    onChangeText = {(value) => setEmail(value)}/>
+                    // </view> 
                     : null
                 }
 
                 { showPassword ? 
-                  <view> 
-                    {/* <SimpleAnimation delay={500} duration={1000} fade staticType='zoom'> */}
-                        <TextInput style = {styles.input}
+                  // <view> 
+                     <SimpleAnimation delay={200} duration={500} fade staticType='zoom'>
+                        <TextInput style={styles.input}
                         underlineColorAndroid = "transparent"
                         placeholder = "Password"
                         placeholderTextColor = "#BDBDBD"
@@ -99,8 +123,8 @@ export default Started => {
                         value={password}
                         onChangeText ={(value) => setPassword(value)}/>
 
-                        {/* </SimpleAnimation> */}
-                        </view>
+                      </SimpleAnimation>
+                        // </view>
                         : null
                   }
 
