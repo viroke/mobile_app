@@ -1,8 +1,9 @@
 import React, {useState, component} from 'react';
-import { View, Text, Image, Button,TouchableOpacity, StyleSheet, Dimensions, StatusBar } from 'react-native';
+import { View, Text, Image, Button, TouchableOpacity, StyleSheet, Dimensions, StatusBar } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
 import { Actions } from 'react-native-router-flux';
 import * as Font from 'expo-font';
+import { getToken } from '../store';
 
 const backgroundColor = isLight => (isLight ? 'blue' : 'lightblue');
 const color = isLight => backgroundColor(!isLight);
@@ -55,6 +56,8 @@ class CutomCarousel extends React.Component {
     fontLoaded: false,
   };
 
+  token = "";
+
   componentDidMount() {
     this.loadAssetsAsync();
   }
@@ -66,16 +69,23 @@ class CutomCarousel extends React.Component {
       WorkSansMedium: require("../assets/fonts/WorkSans-Medium.ttf"),
       WorkSansSemiBold: require("../assets/fonts/WorkSans-SemiBold.ttf"),
     });
+
+    token  = await getToken();
+    if(typeof token === 'string'){
+      Actions.home();
+    }
     this.setState({ fontLoaded: true });
   }
+
   render() {
     var getPageIndex = (pageIndex) => {
         setState({
             pageIndex,
         });
     };
-   const  goToStarted = () => {
-      Actions.started()
+
+   const goToStarted = () => {
+      Actions.started();
    }
 
  if (!this.state.fontLoaded) {
@@ -84,7 +94,7 @@ class CutomCarousel extends React.Component {
  return  (
    <View style={styles.container}>
     <StatusBar hidden/>
-    <TouchableOpacity  onPress = {goToStarted}>
+    <TouchableOpacity  onPress={() => Actions.started()}>
     <Text style={styles.skipLabel} >Skip</Text>
     </TouchableOpacity>
       <Image style={styles.boardImage} source={require('../assets/images/group2.png')} />

@@ -1,67 +1,154 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, StatusBar, View,TextInput, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
+import React, { Component, useState } from 'react';
+import { StyleSheet, Text, StatusBar, View,TextInput, Dimensions, 
+  TouchableOpacity, ScrollView, ToastAndroid
+} 
+  from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import * as Font from 'expo-font';
+import { AppLoading } from 'expo';
+import { VERIFY_EMAIL, LOGIN_USER } from '../api/login';
+// import Spinner from 'react-native-loading-spinner-overlay';
+import { Button } from 'react-native-paper';
+import { SimpleAnimation } from 'react-native-simple-animations';
+import { saveToken } from '../store';
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");  
+const passwordDisplay = 'none';
+const emailDisplay = "flex";
 
-export default class Started extends React.Component {
-  state = {
-    fontLoaded: false,
-  };
+export default Started => {
 
-  componentDidMount() {
-    this.loadAssetsAsync();
-  }
+  const [email, setEmail] = useState("koryoesz@gmail.com");
+  const [password, setPassword] = useState("");
+  const [isloading, setIsloading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showEmail, setShowEmail] = useState(true);
+  const [error, setError] = useState("");
 
-  async loadAssetsAsync() {
+ const loadAssetsAsync =  async () => {
     await Font.loadAsync({
       WorkSans: require("../assets/fonts/WorkSans-Bold.ttf"),
       WorkSansLight: require("../assets/fonts/WorkSans-Light.ttf"),
       WorkSansMedium: require("../assets/fonts/WorkSans-Medium.ttf"),
-      WorkSansSemiBold: require("../assets/fonts/WorkSans-SemiBold.ttf"),
+      WorkSansSemiBold: require("../assets/fonts/WorkSans-SemiBold.ttf")
     });
-    this.setState({ fontLoaded: true });
   }
-  render() {
+
+  loadAssetsAsync();
+
+  const onSubmit = async () => {
+    setIsloading(true);
+
+    const CALLBACK = (response, data) => {
+      setIsloading(false);
+
+      if (response.error) {
+        //  Actions.push("home");
+        setShowPassword(true);
+        setShowEmail(false);
+      }
+
+      if (!response.success) {
+        let msg = response.errors;
+        setError(msg);
+      }
+    };
+
+    const LOGIN_CALLBACK = (response, data) => {
+      setIsloading(false);
+
+      if (response.code === 200) {
+          saveToken(response.data.bearerToken);
+          Actions.push("home");
+      }else{
+        ToastAndroid.show("Invalid Credentials", ToastAndroid.SHORT);
+      }
+
+      if (!response.success) {
+        let msg = response.errors;
+        setError(msg);
+      }
+    };
+
+    const onError = (err) => {
+      setIsloading(false);
+
+      setError("Server Error");
+    };
+    if(!password){
+      VERIFY_EMAIL(email, CALLBACK, onError);
+    }
+    else{
+        var body = { password, email};
+        LOGIN_USER(body, LOGIN_CALLBACK, onError);
+    }
+  };
+
   const  goToRegistration = () => {
       Actions.register()
    }
-   if (!this.state.fontLoaded) {
-    return null;
-  }
-  return (
-    <ScrollView style={styles.body}>
+  
+   if (!loadAssetsAsync) {
+    return <AppLoading/>;
+  } else {
+      return (
+        <ScrollView style={styles.body}>
         <StatusBar barStyle="light-content"/>
-    <View style={styles.container}>
-    <TouchableOpacity  onPress = {goToRegistration}>
-    </TouchableOpacity>
-      <Text style={styles.heading}>Get Started</Text>
-      <Text style={styles.subHeading}>Sign up for new account, enter your email and get started</Text>
-      <TextInput style = {styles.input}
-               underlineColorAndroid = "transparent"
-               placeholder = "Email"
-               placeholderTextColor = "#BDBDBD"
-               autoCapitalize = "none"
-               onChangeText = {this.handleEmail}/>
+        <View style={styles.container}>
+        <TouchableOpacity  onPress={goToRegistration}>
+        </TouchableOpacity>
+          <Text style={styles.heading}>Get Started</Text>
+          <Text style={styles.subHeading}>Sign up for new account, enter your email and get started</Text>
+              { showEmail ? 
+                // <view>
+                  <TextInput style={styles.input}
+                    underlineColorAndroid = "transparent"
+                    placeholder = "Email"
+                    placeholderTextColor = "#BDBDBD"
+                    autoCapitalize = "none"
+                    value={email}
+                    onChangeText = {(value) => setEmail(value)}/>
+                    // </view> 
+                    : null
+                }
 
-            <TouchableOpacity
-               style = {styles.submitButton}
-               onPress = {
-                  () => this.login(this.state.email)
-               }>
-               <Text style = {styles.submitButtonText}> Next </Text>
-            </TouchableOpacity>
-            <Text style={styles.text}>Already have an account?</Text>
-            <TouchableOpacity  onPress = {goToRegistration}>
-            <Text style={styles.login}>Log In</Text>
-            </TouchableOpacity>
+                { showPassword ? 
+                  // <view> 
+                     <SimpleAnimation delay={200} duration={500} fade staticType='zoom'>
+                        <TextInput style={styles.input}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "Password"
+                        placeholderTextColor = "#BDBDBD"
+                        autoCapitalize = "none"
+                        value={password}
+                        onChangeText ={(value) => setPassword(value)}/>
+
+                      </SimpleAnimation>
+                        // </view>
+                        : null
+                  }
+
+                <TouchableOpacity
+                  onPress={onSubmit}
+                >
+                  <Button 
+                    style={styles.submitButton}
+                    loading={isloading}
+                    color="#ffff"
+                  ><Text style={{color:'#ffff'}}>Next</Text></Button>
+                </TouchableOpacity>
+                
+                <Text style={styles.text}>Already have an account?</Text>
+                <TouchableOpacity  onPress = {goToRegistration}>
+                <Text style={styles.login}>Log In</Text>
+                </TouchableOpacity>
 
 
-    </View>
-    </ScrollView>
-  )}
-}
+        </View>
+        </ScrollView>
+      )
+    }
+  }
 const styles = StyleSheet.create({
   body: {
     backgroundColor:'#18191D',
@@ -86,6 +173,22 @@ const styles = StyleSheet.create({
     fontFamily:'WorkSans',
   },
 
+  inputP: {
+    margin: 20,
+    height: 50,
+    borderWidth: 1,
+    borderRadius: 3,
+    fontStyle: 'normal',
+    fontSize: 16,
+    lineHeight: 19,
+    letterSpacing: -0.3,
+    paddingLeft: 15,
+    color: '#BDBDBD',
+    backgroundColor:'#2A2B31',
+    fontFamily:'WorkSansMedium',
+    display: passwordDisplay
+ },
+
   input: {
     margin: 20,
     height: 50,
@@ -99,6 +202,7 @@ const styles = StyleSheet.create({
     color: '#BDBDBD',
     backgroundColor:'#2A2B31',
     fontFamily:'WorkSansMedium',
+    display: emailDisplay
  },
  submitButton: {
     backgroundColor: '#2F80ED',
@@ -109,6 +213,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     opacity:0.65,
     borderRadius: 4,
+    color: '#ffff'
  },
  submitButtonText:{
     color: 'white',
