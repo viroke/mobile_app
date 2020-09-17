@@ -5,7 +5,6 @@ export async function GET_SUBSCRIBED_EVENTS (callback, onError)  {
   let token = await getToken();
   setClientToken(token);
   if(typeof token === 'string'){
-      console.log(token);
       try {
           let events = await fetch(`${api.BASE_URL}subscription/event/upcoming`, {
               method: "GET",
@@ -17,13 +16,11 @@ export async function GET_SUBSCRIBED_EVENTS (callback, onError)  {
               });
 
             events = await events.json();
-            console.log("inner events ", events);
             callback && callback(events);
 
             return events;
 
       } catch (error) {
-          console.log(error)
           onError && onError(error);
           return false;
       }
@@ -33,13 +30,13 @@ export async function GET_SUBSCRIBED_EVENTS (callback, onError)  {
   }
 }
 
-export async function GET_UPCOMING_EVENTS (callback, onError)  {
+export async function GET_EVENTS (callback, onError)  {
   let token = await getToken();
   setClientToken(token);
   if(typeof token === 'string'){
       console.log(token);
       try {
-          let events = await fetch(`${api.BASE_URL}event/upcoming`, {
+          let events = await fetch(`${api.BASE_URL}events`, {
               method: "GET",
               headers: {
                 Accept: "application/json",
@@ -49,13 +46,12 @@ export async function GET_UPCOMING_EVENTS (callback, onError)  {
               });
 
             events = await events.json();
-            console.log("inner events ", events);
-            callback && callback(events);
+            console.log("inner events ", events.data.events);
+            callback && callback(events.data.events);
 
-            return events;
+            return events.data.events;
 
       } catch (error) {
-          console.log(error)
           onError && onError(error);
           return false;
       }

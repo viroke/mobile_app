@@ -7,8 +7,7 @@ import Navigation from "../components/navigationTab";
 import { Actions } from 'react-native-router-flux';
 import * as Font from 'expo-font';
 import  { AppLoading } from 'expo';
-import { GET_UPCOMING_EVENTS } from '../api/subscribe';
-
+import { GET_EVENTS } from '../api/subscribe'
 
 const { width, height } = Dimensions.get("window");
 
@@ -16,6 +15,7 @@ export default App => {
 
   const [isloading, setIsloading] = useState(false);
   const [error, setError] = useState("");
+  const [events, setEvents] = useState([]);
 
   const loadAssetsAsync =  async () => {
     await Font.loadAsync({
@@ -25,7 +25,7 @@ export default App => {
       WorkSansSemiBold: require("../assets/fonts/WorkSans-SemiBold.ttf")
     });
 
-    // onLoad();
+    onLoad();
     
   }
 
@@ -36,8 +36,9 @@ export default App => {
  }
 
  const onLoad = async () => {
-  // setIsloading(true);
 
+  data  = await GET_EVENTS(CALLBACK, onError);
+  setEvents(data);
   const CALLBACK = (response, data) => {
     setIsloading(false);
 
@@ -64,10 +65,7 @@ export default App => {
     setError("Server Error");
   };
 
-  // GET_UPCOMING_EVENTS(CALLBACK, onError);
 };
-
-// onLoad(k);
 
 // useEffect(() => {
 //   onLoad();
@@ -225,208 +223,87 @@ export default App => {
 
       <View style={{flexDirection: "row", justifyContent: "space-between", }} >
         <Grid>
-        <Col style={{marginLeft:5, borderRadius:10, width:200, }}>
-            <Card style={{backgroundColor:'#2A2B31'}}>
-            <TouchableOpacity  onPress = {goToSession}>
-            <Card.Cover source = {require('../assets/images/card.png')} style={styles.imageCard}/>
-            </TouchableOpacity>
-            <Card.Content>
-              <Title style={styles.cardTitle}>Career Talk Expo</Title>
-              <Grid>
-              <Col>
-              <Paragraph style={{fontStyle: 'normal',
-                fontWeight: '600',
-                fontSize: 11,
-                lineHeight: 13,
-                letterSpacing: -0.63434,
-                color: '#BDBDBD',
-                marginTop: 3,
-                opacity:0.65}}>Robert Fox <Image source = {require('../assets/images/Vector.png')}
-                style={{width:10, height:10}}/></Paragraph>
-             </Col>
-          </Grid>
-
-          <View>
-             <Title style={styles.cardPrice}>Entry Fee: <Text>&#8358;</Text> 200</Title>
-          </View>
-
-          <Grid style={{marginLeft:-8,}}>
-          <Col style={{marginRight:10, borderRadius:10, }}>
-          <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={{ height:28,
-                  width:28,
-                  alignItems: 'center',
-                  backgroundColor: '#2F80ED',
-                  padding: 10,
-                  borderRadius:4,
-                  width:70,
-                  marginTop:10,
-                  opacity:0.60,}}
-              >
-                <Text style={{textTransform: 'capitalize',
-                color:'#fff', letterSpacing:-0.237877,marginTop:-5}}> Join </Text>
-              </TouchableOpacity>
-              </View>
-              </Col>
-              <Col style={{marginLeft:10, borderRadius:10, }}>
-              <View style={styles.buttonContainer}>
-              <TouchableOpacity
-               style={{ height:28,
-                width:28,
-                alignItems: 'center',
-                backgroundColor: 'rgba(47, 128, 237, 0.1)',
-                padding: 10,
-                borderRadius:4,
-                width:70,
-                marginTop:10,
-                opacity:0.70,}}
-              >
-               <Text style={{textTransform: 'capitalize',
-               color:'#7EB5FF', letterSpacing:-0.237877,marginTop:-5}}> Details </Text>
-              </TouchableOpacity>
-              </View>
-              </Col>
-          </Grid>
-
-            </Card.Content>
-          </Card>
-
-          <View style={styles.cardOverlay}>
-             <Title style={styles.cardOverlayText}>12:30 PM Today</Title>
-          </View>
-
-         </Col>
-
-
-
-
-            <Col style={{marginLeft:5, borderRadius:10, width:200 }}>
-            <Card style={{backgroundColor:'#2A2B31'}}>
-            <Card.Cover source = {require('../assets/images/card2.png')} style={styles.imageCard}/>
-            <Card.Content>
-              <Title style={styles.cardTitle}>Career Talk Expo</Title>
-              <Grid style={{marginLeft:-8,}}>
-              <Col>
-              <Paragraph style={{fontStyle: 'normal',
-                fontWeight: '600',
-                fontSize: 11,
-                lineHeight: 13,
-                letterSpacing: -0.63434,
-                color: '#BDBDBD',
-                marginTop: 3,
-                marginLeft:8,
-                opacity:0.65}}>Robert Fox <Image source = {require('../assets/images/Vector.png')}
-                style={{width:10, height:10}}/></Paragraph>
-             </Col>
-          </Grid>
-
-          <View>
-             <Title style={styles.cardPrice}>Entry Fee: <Text>&#8358;</Text> 200</Title>
-          </View>
-
-          <Grid style={{marginLeft:-8,}}>
-          <Col style={{marginRight:10, borderRadius:10, }}>
-          <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={{ height:28,
-                  width:28,
-                  alignItems: 'center',
-                  backgroundColor: '#98A2B3',
-                  padding: 10,
-                  borderRadius:4,
-                  width:70,
-                  marginTop:10,
-                  opacity:0.60,}}
-              >
-                <Text style={{textTransform: 'capitalize',
-                color:'#fff', letterSpacing:-0.237877,marginTop:-5}}> Join </Text>
-              </TouchableOpacity>
-              </View>
-              </Col>
-              <Col style={{marginLeft:10, borderRadius:10, }}>
-              <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={{ height:28,
-                  width:28,
-                  alignItems: 'center',
-                  backgroundColor: 'rgba(47, 128, 237, 0.1)',
-                  padding: 10,
-                  borderRadius:4,
-                  width:70,
-                  marginTop:10,
-                  opacity:0.70,}}
-              >
-               <Text style={{textTransform: 'capitalize',
-                color:'#7EB5FF', letterSpacing:-0.237877,marginTop:-5}}> Details </Text>
-              </TouchableOpacity>
-              </View>
-              </Col>
-          </Grid>
-
-            </Card.Content>
-          </Card>
-          <View style={styles.cardOverlay}>
-             <Title style={styles.cardOverlayText}>12:00 PM Today</Title>
-          </View>
-            </Col>
-
-
-            <Col style={{marginLeft:5, borderRadius:10, width:200, }}>
-            <Card style={{backgroundColor:'#2A2B31'}}>
-            <Card.Cover source = {require('../assets/images/card2.png')} style={styles.imageCard}/>
-            <Card.Content>
-              <Title style={styles.cardTitle}>Career Talk Expo</Title>
-              <Grid style={{marginLeft:-8,}}>
-              <Col>
-              <Paragraph style={{fontStyle: 'normal',
-                fontWeight: '600',
-                fontSize: 11,
-                lineHeight: 13,
-                letterSpacing: -0.63434,
-                color: '#BDBDBD',
-                marginTop: 3,
-                marginLeft:8,
-                opacity:0.65}}>Robert Fox <Image source = {require('../assets/images/Vector.png')}
-                style={{width:10, height:10}}/></Paragraph>
-             </Col>
-
-          </Grid>
-
-          <View>
-             <Title style={styles.cardPrice}>Entry Fee: <Text>&#8358;</Text> 200</Title>
-          </View>
-
-          <Grid style={{marginLeft:-8,}}>
-          <Col style={{marginRight:10, borderRadius:10, }}>
-          <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={styles.button}
-              >
-                <Text style={{textTransform: 'capitalize',
-                color:'#fff', letterSpacing:-0.237877,marginTop:-5}}> Join </Text>
-              </TouchableOpacity>
-              </View>
-              </Col>
-              <Col style={{marginLeft:10, borderRadius:10, }}>
-              <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={styles.button}
-              >
-               <Text style={{textTransform: 'capitalize',
-                color:'#fff', letterSpacing:-0.237877,marginTop:-5}}> Details </Text>
-              </TouchableOpacity>
-              </View>
-              </Col>
-          </Grid>
-
-            </Card.Content>
-          </Card>
-          <View style={styles.cardOverlay}>
-             <Title style={styles.cardOverlayText}>12:00 PM <Text>Today</Text></Title>
-          </View>
-          </Col>
-
+            { events != null ? 
+                events.map((item, i) => {
+                  {
+                    return (
+                            <Col style={{marginLeft:5, borderRadius:10, width:200, }}>
+                            <Card style={{backgroundColor:'#2A2B31'}}>
+                            <TouchableOpacity  onPress = {goToSession}>
+                            <Card.Cover source = {require('../assets/images/card.png')} style={styles.imageCard}/>
+                            </TouchableOpacity>
+                            <Card.Content>
+                              <Title style={styles.cardTitle}>{item.title}</Title>
+                              <Grid>
+                              <Col>
+                              <Paragraph style={{fontStyle: 'normal',
+                                fontWeight: '600',
+                                fontSize: 11,
+                                lineHeight: 13,
+                                letterSpacing: -0.63434,
+                                color: '#BDBDBD',
+                                marginTop: 3,
+                                opacity:0.65}}>Robert Fox <Image source = {require('../assets/images/Vector.png')}
+                                style={{width:10, height:10}}/></Paragraph>
+                            </Col>
+                      </Grid>
+            
+                      <View>
+                        <Title style={styles.cardPrice}>Entry Fee: <Text>&#8358;</Text> {item.ticketPrice}</Title>
+                      </View>
+            
+                      <Grid style={{marginLeft:-8,}}>
+                        <Col style={{marginRight:10, borderRadius:10, }}>
+                          <View style={styles.buttonContainer}>
+                              <TouchableOpacity
+                                style={{ height:28,
+                                  width:28,
+                                  alignItems: 'center',
+                                  backgroundColor: '#2F80ED',
+                                  padding: 10,
+                                  borderRadius:4,
+                                  width:70,
+                                  marginTop:10,
+                                  opacity:0.60,}}
+                              >
+                                <Text style={{textTransform: 'capitalize',
+                                color:'#fff', letterSpacing:-0.237877,marginTop:-5}}> Join </Text>
+                              </TouchableOpacity>
+                              </View>
+                            </Col>
+                            <Col style={{marginLeft:10, borderRadius:10, }}>
+                              <View style={styles.buttonContainer}>
+                                <TouchableOpacity
+                                style={{ height:28,
+                                  width:28,
+                                  alignItems: 'center',
+                                  backgroundColor: 'rgba(47, 128, 237, 0.1)',
+                                  padding: 10,
+                                  borderRadius:4,
+                                  width:70,
+                                  marginTop:10,
+                                  opacity:0.70,}}
+                                >
+                                  <Text style={{textTransform: 'capitalize',
+                                  color:'#7EB5FF', letterSpacing:-0.237877,marginTop:-5}}> Details </Text>
+                                </TouchableOpacity>
+                              </View>
+                            </Col>
+                      </Grid>
+            
+                        </Card.Content>
+                      </Card>
+            
+                      <View style={styles.cardOverlay}>
+                        <Title style={styles.cardOverlayText}>12:30 PM Today</Title>
+                      </View>
+            
+                    </Col>
+                
+                    );
+                  }
+                  
+                }) : [] }
 
           </Grid>
         </View>
