@@ -53,7 +53,6 @@ class Wallet extends React.Component {
                     fontFamily: 'WorkSansMedium',
                     fontStyle: 'normal',
                     fontWeight: 'normal',
-                    fontsize: 12,
                     lineHeight: 28,
                     letterSpacing: -0.8,
                     color: '#E0E0E0', }}>
@@ -78,7 +77,6 @@ class Wallet extends React.Component {
                 }}
               >
                 <Text style={{
-                fontSize: 14,
                 width: 100,
                 height: 20,
                 fontFamily: 'WorkSansLight',
@@ -119,7 +117,7 @@ class Wallet extends React.Component {
 
               <View style={{ marginTop: 20 }}>
                 <Text
-                  style={{ fontSize: 12,
+                  style={{
                     fontWeight: "bold",
                     color: "#fff",
                     width: 139,
@@ -148,7 +146,7 @@ class Wallet extends React.Component {
                   }}
                 >
                   <View>
-                    <Text style={{ fontSize: 9,
+                    <Text style={{
                     fontFamily: 'WorkSansLight',
                     fontStyle: 'normal',
                     fontWeight: 'normal',
@@ -178,7 +176,6 @@ class Wallet extends React.Component {
               <View style={{ marginTop: 20 }}>
                 <Text
                   style={{
-                    fontSize: 12,
                     fontWeight: "bold",
                     color: "#fff",
                     width: 139,
@@ -206,7 +203,7 @@ class Wallet extends React.Component {
                   }}
                 >
                   <View>
-                    <Text style={{ fontSize: 9,
+                    <Text style={{
                     fontFamily: 'WorkSansLight',
                     fontStyle: 'normal',
                     fontWeight: 'normal',
@@ -248,7 +245,7 @@ class Wallet extends React.Component {
             }}
           >
             <Text
-              style={{ fontSize: 18,
+              style={{
                 fontFamily: 'WorkSansMedium',
                 fontStyle: 'normal',
                 fontWeight: '600',
@@ -280,7 +277,6 @@ class Wallet extends React.Component {
 
             <View style={styles.tr}>
               <Text style={{
-                fontSize: 14,
                 fontWeight: "bold",
                 color: "#F5F7FA",
                 width: 150,
@@ -324,7 +320,6 @@ class Wallet extends React.Component {
 
             <View style={styles.tr}>
               <Text style={{
-                fontSize: 14,
                 fontWeight: "bold",
                 color: "#F5F7FA",
                 width: 150,

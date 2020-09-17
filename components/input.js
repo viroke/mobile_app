@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-nativ
 import { Actions } from 'react-native-router-flux';
 import * as Font from 'expo-font';
 
+
 class Inputs extends Component {
    state = {
       fontLoaded: false,
