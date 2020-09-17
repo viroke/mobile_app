@@ -3,7 +3,7 @@ import { View, Text, Image, Button, TouchableOpacity, StyleSheet, Dimensions, St
 import Onboarding from 'react-native-onboarding-swiper';
 import { Actions } from 'react-native-router-flux';
 import * as Font from 'expo-font';
-import { checkToken } from '../store';
+import { getToken } from '../store';
 
 const backgroundColor = isLight => (isLight ? 'blue' : 'lightblue');
 const color = isLight => backgroundColor(!isLight);
@@ -70,7 +70,7 @@ class CutomCarousel extends React.Component {
       WorkSansSemiBold: require("../assets/fonts/WorkSans-SemiBold.ttf"),
     });
 
-    token  = await checkToken();
+    token  = await getToken();
     if(typeof token === 'string'){
       Actions.home();
     }

@@ -9,7 +9,7 @@ export async function saveToken(data) {
       }
 }
 
-export async function checkToken() {
+export async function getToken() {
     try{
         let token = await AsyncStorage.getItem("@token");
         if(token !== null){

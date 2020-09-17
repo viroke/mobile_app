@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, Dimensions, Image, ScrollView, StatusBar, TouchableOpacity, ImageBackground} from 'react-native';
 import { Col, Grid } from 'react-native-easy-grid';
 import { SimpleLineIcons } from '@expo/vector-icons';
@@ -6,35 +6,79 @@ import { Card, Title, Paragraph } from 'react-native-paper';
 import Navigation from "../components/navigationTab";
 import { Actions } from 'react-native-router-flux';
 import * as Font from 'expo-font';
+import  { AppLoading } from 'expo';
+import { GET_UPCOMING_EVENTS } from '../api/subscribe'
 
 const { width, height } = Dimensions.get("window");
 
-class App extends React.Component {
-  state = {
-    fontLoaded: false,
-  };
+export default App => {
 
-  componentDidMount() {
-    this.loadAssetsAsync();
-  }
+  const [isloading, setIsloading] = useState(false);
+  const [error, setError] = useState("");
 
-  async loadAssetsAsync() {
+  const loadAssetsAsync =  async () => {
     await Font.loadAsync({
       WorkSans: require("../assets/fonts/WorkSans-Bold.ttf"),
       WorkSansLight: require("../assets/fonts/WorkSans-Light.ttf"),
       WorkSansMedium: require("../assets/fonts/WorkSans-Medium.ttf"),
-      WorkSansSemiBold: require("../assets/fonts/WorkSans-SemiBold.ttf"),
+      WorkSansSemiBold: require("../assets/fonts/WorkSans-SemiBold.ttf")
     });
-    this.setState({ fontLoaded: true });
+
+    // onLoad();
+    
   }
 
-  render() {
-    const  goToSession = () => {
-      Actions.session()
-   }
-    if (!this.state.fontLoaded) {
-      return null; // render some progress indicator
+  loadAssetsAsync();
+
+  const goToSession = () => {
+    Actions.session()
+ }
+
+ const onLoad = async () => {
+  // setIsloading(true);
+
+  const CALLBACK = (response, data) => {
+    setIsloading(false);
+
+    if (response.error) {
     }
+
+    if (!response.success) {
+      let msg = response.errors;
+      setError(msg);
+    }
+
+    if (response.code === 200) {
+      console.log("miami ", response.data)
+    }else{
+      ToastAndroid.show("An error occured", ToastAndroid.SHORT);
+  }
+
+
+  };
+
+  const onError = (err) => {
+    setIsloading(false);
+
+    setError("Server Error");
+  };
+
+  // GET_UPCOMING_EVENTS(CALLBACK, onError);
+};
+
+// onLoad(k);
+
+// useEffect(() => {
+//   onLoad();
+// });
+
+ if (!loadAssetsAsync) {
+  return <AppLoading/>;
+} else {
+
+  // render() {
+    
+    
     return (
       <View style={styles.body}>
       <ScrollView>
@@ -177,7 +221,7 @@ class App extends React.Component {
             showsHorizontalScrollIndicator={false}
           >
 
-  <View style={{flexDirection: "row", justifyContent: "space-between", }} >
+      <View style={{flexDirection: "row", justifyContent: "space-between", }} >
         <Grid>
         <Col style={{marginLeft:5, borderRadius:10, width:200, }}>
             <Card style={{backgroundColor:'#2A2B31'}}>
@@ -247,7 +291,7 @@ class App extends React.Component {
           </Card>
 
           <View style={styles.cardOverlay}>
-             <Title style={styles.cardOverlayText}>12:00 PM Today</Title>
+             <Title style={styles.cardOverlayText}>12:30 PM Today</Title>
           </View>
 
          </Col>
@@ -478,9 +522,9 @@ class App extends React.Component {
       </ScrollView>
       <Navigation activeTab="home" />
       </View>
-    )}
+    );
+  }
 }
-export default App
 
 const styles = StyleSheet.create({
   body: {
