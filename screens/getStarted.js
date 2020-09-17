@@ -121,6 +121,7 @@ export default Started => {
                         placeholderTextColor = "#BDBDBD"
                         autoCapitalize = "none"
                         value={password}
+                        secureTextEntry={true}
                         onChangeText ={(value) => setPassword(value)}/>
 
                       </SimpleAnimation>
@@ -138,11 +139,11 @@ export default Started => {
                   ><Text style={{color:'#ffff'}}>Next</Text></Button>
                 </TouchableOpacity>
                 
+                <TouchableOpacity
+                  onPress={goToRegistration}
+                >
                 <Text style={styles.text}>Already have an account?</Text>
-                <TouchableOpacity  onPress = {goToRegistration}>
-                <Text style={styles.login}>Log In</Text>
-                </TouchableOpacity>
-
+                </TouchableOpacity> 
 
         </View>
         </ScrollView>
@@ -202,7 +203,8 @@ const styles = StyleSheet.create({
     color: '#BDBDBD',
     backgroundColor:'#2A2B31',
     fontFamily:'WorkSansMedium',
-    display: emailDisplay
+    display: emailDisplay,
+    borderColor:'#2A2B31',
  },
  submitButton: {
     backgroundColor: '#2F80ED',

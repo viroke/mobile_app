@@ -24,28 +24,30 @@ class ScrollViewExample extends Component {
       WorkSansSemiBold: require("../assets/fonts/WorkSans-SemiBold.ttf"),
     });
     this.setState({ fontLoaded: true });
-  }
+  } 
   render() {
-  const  goToGetHome = () => {
-      Actions.home()
+  const  goToGetStarted = () => {
+      Actions.started()
    }
    if (!this.state.fontLoaded) {
     return null; // render some progress indicator
   }
   return (
-    <ScrollView>
+    <View>
     <StatusBar style="auto" />
     <View style={styles.container}>
-    <TouchableOpacity  onPress = {goToGetHome}>
+    <TouchableOpacity  onPress = {goToGetStarted}>
     <AntDesign style={styles.icon} name="arrowleft" size={24}/>
     </TouchableOpacity>
+    <ScrollView>
       <Text style={styles.heading}>Complete Profile</Text>
       <Text style={styles.subHeading}>Register via your company email to connect with the people of your company.</Text>
       <UploadImage style="auto" />
       <Inputs style="auto" />
-
+      </ScrollView>
+      </View> 
     </View>
-    </ScrollView>
+   
   )}
 }
 export default ScrollViewExample
