@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-nativ
 import { Actions } from 'react-native-router-flux';
 import * as Font from 'expo-font';
 
+
 class Inputs extends Component {
    state = {
       fontLoaded: false,
@@ -45,9 +46,9 @@ class Inputs extends Component {
       ' user name: ' + userName + ' Telephone: ' + Telephone)
    }
    render() {
-      const  goToHome = () => {
-         Actions.home()
-      }
+      // const  goToHome = () => {
+      //    Actions.home()
+      // }
       if (!this.state.fontLoaded) {
          return null; // render some progress indicator
        }
@@ -83,7 +84,7 @@ class Inputs extends Component {
 
             <TouchableOpacity
                style = {styles.submitButton}
-               onPress = {goToHome}>
+               >
                <Text style = {styles.submitButtonText}> Register </Text>
             </TouchableOpacity>
          </View>
@@ -110,6 +111,7 @@ const styles = StyleSheet.create({
       color: '#BDBDBD',
       backgroundColor:'#2A2B31',
       fontFamily:'WorkSansMedium',
+      borderColor:'#2A2B31',
    },
    submitButton: {
       backgroundColor: '#2F80ED',

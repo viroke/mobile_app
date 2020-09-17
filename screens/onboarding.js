@@ -1,9 +1,10 @@
 import React, {useState, component} from 'react';
+import { AsyncStorage } from 'react-native';
 import { View, Text, Image, Button, TouchableOpacity, StyleSheet, Dimensions, StatusBar } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
 import { Actions } from 'react-native-router-flux';
 import * as Font from 'expo-font';
-import { getToken } from '../store';
+import { getToken, removeToken } from '../store';
 
 const backgroundColor = isLight => (isLight ? 'blue' : 'lightblue');
 const color = isLight => backgroundColor(!isLight);
@@ -72,7 +73,8 @@ class CutomCarousel extends React.Component {
 
     token  = await getToken();
     if(typeof token === 'string'){
-      Actions.home();
+       removeToken();
+     // Actions.home();
     }
     this.setState({ fontLoaded: true });
   }
@@ -88,6 +90,14 @@ class CutomCarousel extends React.Component {
       Actions.started();
    }
 
+   const completeOnboarding = async () => {
+     //flip onboarding
+     await  AsyncStorage.setItem('hasOnboarded', JSON.stringify({
+      hasOnboarded:true 
+     }));
+     this.props.navigation.navigate('started') 
+   }
+
  if (!this.state.fontLoaded) {
     return null; // render some progress indicator
   }
@@ -99,6 +109,8 @@ class CutomCarousel extends React.Component {
     </TouchableOpacity>
       <Image style={styles.boardImage} source={require('../assets/images/group2.png')} />
         <Onboarding
+        onDone = {completeOnboarding}
+        onSkip = {completeOnboarding}
         DotComponent={Square}
         SkipButtonComponent={Skip}
         NextButtonComponent={Next}
@@ -110,7 +122,7 @@ class CutomCarousel extends React.Component {
           paddingRight: 40,
           paddingLeft: 40,
           fontWeight: 'bold',
-          marginTop: -100
+          marginTop:20,
           }}
         subTitleStyles={{
             fontSize: 14,
@@ -158,11 +170,12 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   boardImage: {
-    position: 'absolute',
-    top: 150,
-    left: 90,
-    width:186,
-    height:180,
+    position:"absolute",
+    left: width-280,
+    top:height-530,
+    width:212,
+    height:205,
     elevation:3,
+    zIndex:3,
   }
 });
