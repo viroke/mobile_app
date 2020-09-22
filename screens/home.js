@@ -8,6 +8,7 @@ import { Actions } from 'react-native-router-flux';
 import * as Font from 'expo-font';
 import  { AppLoading } from 'expo';
 import { GET_EVENTS } from '../api/subscribe'
+import Toast from 'react-native-simple-toast';
 
 const { width, height } = Dimensions.get("window");
 
@@ -34,6 +35,10 @@ export default App => {
   const goToSession = () => {
     Actions.session()
  }
+
+  const goToWallet = () => {
+    Actions.wallet()
+  }
 
  const onLoad = async () => {
 
@@ -70,6 +75,7 @@ export default App => {
 // useEffect(() => {
 //   onLoad();
 // });
+Toast.showWithGravity('This is a long toast at the top.', Toast.LONG, Toast.TOP);
 
  if (!loadAssetsAsync) {
   return <AppLoading/>;
@@ -79,14 +85,13 @@ export default App => {
     
     return (
       <View style={styles.body}>
-      <ScrollView>
+    
       <StatusBar barStyle="light-content" style={styles.status}/>
       <View style={styles.container}>
       <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
-            marginTop: 10,
           }}
         >
          <View>
@@ -94,13 +99,18 @@ export default App => {
          </View>
 
           <View>
+          <TouchableOpacity
+          onPress={goToWallet}
+          >
           <SimpleLineIcons name="wallet" size={24} color="white"
            style={{transform: [{rotateY: '180deg'}], opacity:0.65}}/>
+           </TouchableOpacity>
           <Text style={styles.iconLabel}>Wallet</Text>
             </View>
       </View>
 
-
+      <ScrollView>
+        
       <View>
         <Text style={{
           fontStyle: 'normal',
@@ -150,6 +160,7 @@ export default App => {
           letterSpacing: -0.8,
          }}> PEOPLE YOU FOLLOW</Text>
        </View>
+       
 
        <ScrollView
             style={{ flexDirection: "row", padding: 10 }}
@@ -310,7 +321,7 @@ export default App => {
 
         </ScrollView>
 
-        {/* End Upcoming */}
+        {/* End Upcoming */} 
 
         <View>
         <Text style={{
@@ -413,7 +424,6 @@ export default App => {
 
          </Col>
 
-
             <Col style={{marginLeft:5, borderRadius:10, width:200 }}>
             <Card style={{backgroundColor:'#2A2B31'}}>
             <Card.Cover source = {require('../assets/images/card4.png')} style={styles.imageCard}/>
@@ -433,7 +443,6 @@ export default App => {
                 style={{width:10, height:10}}/></Paragraph>
              </Col>
           </Grid>
-
           <View>
              <Title style={styles.cardPrice}>Entry Fee: <Text>&#8358;</Text> 200</Title>
           </View>
@@ -593,9 +602,9 @@ export default App => {
 
         </View>
 
-
+       </ScrollView>
       </View>
-      </ScrollView>
+    
       <Navigation activeTab="home" />
       </View>
     );
@@ -613,7 +622,7 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    marginTop:50,
+    marginTop:40,
     marginLeft:10,
     marginRight:15,
   },
