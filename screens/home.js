@@ -1,5 +1,10 @@
 import React, { Component, useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button, Dimensions, Image, ScrollView, StatusBar, TouchableOpacity, ImageBackground} from 'react-native';
+import { StyleSheet, Text, View, Button, Dimensions, Image,
+   ScrollView, StatusBar, 
+   TouchableOpacity, 
+   ImageBackground,
+   RefreshControl,
+   SafeAreaView,} from 'react-native';
 import { Col, Grid } from 'react-native-easy-grid';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Card, Title, Paragraph } from 'react-native-paper';
@@ -7,8 +12,8 @@ import Navigation from "../components/navigationTab";
 import { Actions } from 'react-native-router-flux';
 import * as Font from 'expo-font';
 import  { AppLoading } from 'expo';
-import { GET_EVENTS } from '../api/subscribe'
-import Toast from 'react-native-simple-toast';
+import { GET_EVENTS } from '../api/subscribe';
+import Constants from 'expo-constants';
 
 const { width, height } = Dimensions.get("window");
 
@@ -72,10 +77,20 @@ export default App => {
 
 };
 
-// useEffect(() => {
-//   onLoad();
-// });
-Toast.showWithGravity('This is a long toast at the top.', Toast.LONG, Toast.TOP);
+const [refreshing, setRefreshing] = React.useState(false);
+
+  const wait = (timeout) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, timeout);
+    });
+  };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
 
  if (!loadAssetsAsync) {
   return <AppLoading/>;
@@ -85,8 +100,8 @@ Toast.showWithGravity('This is a long toast at the top.', Toast.LONG, Toast.TOP)
     
     return (
       <View style={styles.body}>
-    
       <StatusBar barStyle="light-content" style={styles.status}/>
+      
       <View style={styles.container}>
       <View
           style={{
@@ -109,7 +124,9 @@ Toast.showWithGravity('This is a long toast at the top.', Toast.LONG, Toast.TOP)
             </View>
       </View>
 
-      <ScrollView>
+      <ScrollView  refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         
       <View>
         <Text style={{
@@ -139,14 +156,22 @@ Toast.showWithGravity('This is a long toast at the top.', Toast.LONG, Toast.TOP)
           <Text style={styles.text}>Exclusive 1:1 Chat with Jarome</Text>
            </View>
 
-           <View style={{marginLeft:3, }}>
+           <View style={{marginRight:3, }}>
             <Card.Cover  source={require('../assets/images/Rectangle6.png')} style={styles.image}/>
             <Text style={styles.text}>Figchat with John</Text>
+           </View>
+
+           <View style={{marginRight:3, }}>
+            <Card.Cover  source={require('../assets/images/Rectangle5.png')} style={styles.image}/>
+          <Text style={styles.text}>Exclusive 1:1 Chat with Jarome</Text>
            </View>
         </View>
   </ScrollView>
 
   <View>
+  <TouchableOpacity
+          onPress={() => Actions.profile()}
+          >
         <Text style={{
           fontStyle: 'normal',
           fontWeight: '600',
@@ -159,6 +184,7 @@ Toast.showWithGravity('This is a long toast at the top.', Toast.LONG, Toast.TOP)
           marginLeft:7,
           letterSpacing: -0.8,
          }}> PEOPLE YOU FOLLOW</Text>
+         </TouchableOpacity>
        </View>
        
 
@@ -169,39 +195,63 @@ Toast.showWithGravity('This is a long toast at the top.', Toast.LONG, Toast.TOP)
             showsHorizontalScrollIndicator={false}
           >
         <View style={styles.sliderImagecol}>
+        <TouchableOpacity
+          onPress={() => Actions.profile()}
+          >
             <Image source = {require('../assets/images/Mask.png')}
             style={styles.sliderImage}/>
             <Text style={styles.textImage}>Jerome Bell</Text>
+            </TouchableOpacity>
         </View>
 
         <View style={styles.sliderImagecol}>
+        <TouchableOpacity
+          onPress={() => Actions.profile()}
+          >
             <Image source = {require('../assets/images/Mask2.png')}
              style={styles.sliderImage}/>
              <Text style={styles.textImage}>Ralph Edwards</Text>
+        </TouchableOpacity>
         </View>
 
           <View style={styles.sliderImagecol}>
+          <TouchableOpacity
+          onPress={() => Actions.profile()}
+          >
             <Image source = {require('../assets/images/Mask3.png')}
              style={styles.sliderImage}/>
              <Text style={styles.textImage}>Jenny Wilson</Text>
+          </TouchableOpacity>
           </View>
 
           <View style={styles.sliderImagecol}>
+          <TouchableOpacity
+          onPress={() => Actions.profile()}
+          >
             <Image source = {require('../assets/images/Mask4.png')}
              style={styles.sliderImage}/>
              <Text style={styles.textImage}>Albert Flores</Text>
+          </TouchableOpacity>
             </View>
 
             <View style={styles.sliderImagecol}>
+            <TouchableOpacity
+            onPress={() => Actions.profile()}
+            >
             <Image source = {require('../assets/images/Mask4.png')}
              style={styles.sliderImage}/>
              <Text style={styles.textImage}>Albert Flores</Text>
+             </TouchableOpacity>
             </View>
 
             <View style={styles.sliderImagecol}>
+            <TouchableOpacity
+            onPress={() => Actions.profile()}
+             >
             <Image source = {require('../assets/images/Mask4.png')}
              style={styles.sliderImage}/>
              <Text style={styles.textImage}>Albert Flores</Text>
+             </TouchableOpacity>
             </View>
       </ScrollView>
 
@@ -612,6 +662,15 @@ Toast.showWithGravity('This is a long toast at the top.', Toast.LONG, Toast.TOP)
 }
 
 const styles = StyleSheet.create({
+
+  pulldown: {
+    flex: 1,
+  },
+  scrollView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   body: {
     flex: 1,
     backgroundColor:'#18191D',
