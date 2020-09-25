@@ -4,7 +4,7 @@ import { View, Text, Image, Button, TouchableOpacity, StyleSheet, Dimensions, St
 import Onboarding from 'react-native-onboarding-swiper';
 import { Actions } from 'react-native-router-flux';
 import * as Font from 'expo-font';
-import { getToken, removeToken } from '../store';
+import { getToken } from '../store';
 
 const backgroundColor = isLight => (isLight ? 'blue' : 'lightblue');
 const color = isLight => backgroundColor(!isLight);
@@ -73,8 +73,7 @@ class CutomCarousel extends React.Component {
 
     token  = await getToken();
     if(typeof token === 'string'){
-       removeToken();
-     // Actions.home();
+        Actions.home();//
     }
     this.setState({ fontLoaded: true });
   }

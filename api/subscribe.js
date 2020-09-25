@@ -32,9 +32,7 @@ export async function GET_SUBSCRIBED_EVENTS (callback, onError)  {
 
 export async function GET_EVENTS (callback, onError)  {
   let token = await getToken();
-  setClientToken(token);
   if(typeof token === 'string'){
-      console.log(token);
       try {
           let events = await fetch(`${api.BASE_URL}events`, {
               method: "GET",
@@ -46,7 +44,7 @@ export async function GET_EVENTS (callback, onError)  {
               });
 
             events = await events.json();
-            console.log("inner events ", events.data.events);
+            console.log("events " ,events)
             callback && callback(events.data.events);
 
             return events.data.events;
@@ -59,4 +57,6 @@ export async function GET_EVENTS (callback, onError)  {
   else {
       return null;
   }
+
+      
 }
