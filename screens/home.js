@@ -1,5 +1,10 @@
 import React, { Component, useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button, Dimensions, Image, ScrollView, StatusBar, TouchableOpacity, ImageBackground} from 'react-native';
+import { StyleSheet, Text, View, Button, Dimensions, Image,
+   ScrollView, StatusBar, 
+   TouchableOpacity, 
+   ImageBackground,
+   RefreshControl,
+   SafeAreaView,} from 'react-native';
 import { Col, Grid } from 'react-native-easy-grid';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Card, Title, Paragraph } from 'react-native-paper';
@@ -7,7 +12,8 @@ import Navigation from "../components/navigationTab";
 import { Actions } from 'react-native-router-flux';
 import * as Font from 'expo-font';
 import  { AppLoading } from 'expo';
-import { GET_EVENTS } from '../api/subscribe'
+import { GET_EVENTS } from '../api/subscribe';
+import Constants from 'expo-constants';
 
 const { width, height } = Dimensions.get("window");
 
@@ -16,6 +22,7 @@ export default App = () => {
   const [isloading, setIsloading] = useState(false);
   const [error, setError] = useState("");
   const [events, setEvents] = useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const load = async () => {
     try {
@@ -25,6 +32,22 @@ export default App = () => {
       console.log(err);
     }
   };
+
+  const wait = (timeout) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, timeout);
+    });
+  };
+
+  const goToWallet = () => {
+   return {};
+  };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   useEffect(() => {
     load();
@@ -61,29 +84,23 @@ export default App = () => {
 
   const onError = (err) => {
     setIsloading(false);
-    setError("Server Error");fix
+    setError("Server Error");
   };
 
   GET_EVENTS(CALLBACK, onError);
 
-};
+ }
 
-//  if (!loadAssetsAsync) {
-//     return <AppLoading/>;
-// } else {
-
-  // render() {
     
     return (
       <View style={styles.body}>
-      <ScrollView>
       <StatusBar barStyle="light-content" style={styles.status}/>
+      
       <View style={styles.container}>
       <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
-            marginTop: 10,
           }}
         >
          <View>
@@ -91,13 +108,20 @@ export default App = () => {
          </View>
 
           <View>
+          <TouchableOpacity
+          onPress={goToWallet}
+          >
           <SimpleLineIcons name="wallet" size={24} color="white"
            style={{transform: [{rotateY: '180deg'}], opacity:0.65}}/>
+           </TouchableOpacity>
           <Text style={styles.iconLabel}>Wallet</Text>
             </View>
       </View>
 
-
+      <ScrollView  refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+        
       <View>
         <Text style={{
           fontStyle: 'normal',
@@ -126,14 +150,22 @@ export default App = () => {
           <Text style={styles.text}>Exclusive 1:1 Chat with Jarome</Text>
            </View>
 
-           <View style={{marginLeft:3, }}>
+           <View style={{marginRight:3, }}>
             <Card.Cover  source={require('../assets/images/Rectangle6.png')} style={styles.image}/>
             <Text style={styles.text}>Figchat with John</Text>
+           </View>
+
+           <View style={{marginRight:3, }}>
+            <Card.Cover  source={require('../assets/images/Rectangle5.png')} style={styles.image}/>
+          <Text style={styles.text}>Exclusive 1:1 Chat with Jarome</Text>
            </View>
         </View>
   </ScrollView>
 
   <View>
+  <TouchableOpacity
+          onPress={() => Actions.profile()}
+          >
         <Text style={{
           fontStyle: 'normal',
           fontWeight: '600',
@@ -146,7 +178,9 @@ export default App = () => {
           marginLeft:7,
           letterSpacing: -0.8,
          }}> PEOPLE YOU FOLLOW</Text>
+         </TouchableOpacity>
        </View>
+       
 
        <ScrollView
             style={{ flexDirection: "row", padding: 10 }}
@@ -155,39 +189,63 @@ export default App = () => {
             showsHorizontalScrollIndicator={false}
           >
         <View style={styles.sliderImagecol}>
+        <TouchableOpacity
+          onPress={() => Actions.profile()}
+          >
             <Image source = {require('../assets/images/Mask.png')}
             style={styles.sliderImage}/>
             <Text style={styles.textImage}>Jerome Bell</Text>
+            </TouchableOpacity>
         </View>
 
         <View style={styles.sliderImagecol}>
+        <TouchableOpacity
+          onPress={() => Actions.profile()}
+          >
             <Image source = {require('../assets/images/Mask2.png')}
              style={styles.sliderImage}/>
              <Text style={styles.textImage}>Ralph Edwards</Text>
+        </TouchableOpacity>
         </View>
 
           <View style={styles.sliderImagecol}>
+          <TouchableOpacity
+          onPress={() => Actions.profile()}
+          >
             <Image source = {require('../assets/images/Mask3.png')}
              style={styles.sliderImage}/>
              <Text style={styles.textImage}>Jenny Wilson</Text>
+          </TouchableOpacity>
           </View>
 
           <View style={styles.sliderImagecol}>
+          <TouchableOpacity
+          onPress={() => Actions.profile()}
+          >
             <Image source = {require('../assets/images/Mask4.png')}
              style={styles.sliderImage}/>
              <Text style={styles.textImage}>Albert Flores</Text>
+          </TouchableOpacity>
             </View>
 
             <View style={styles.sliderImagecol}>
+            <TouchableOpacity
+            onPress={() => Actions.profile()}
+            >
             <Image source = {require('../assets/images/Mask4.png')}
              style={styles.sliderImage}/>
              <Text style={styles.textImage}>Albert Flores</Text>
+             </TouchableOpacity>
             </View>
 
             <View style={styles.sliderImagecol}>
+            <TouchableOpacity
+            onPress={() => Actions.profile()}
+             >
             <Image source = {require('../assets/images/Mask4.png')}
              style={styles.sliderImage}/>
              <Text style={styles.textImage}>Albert Flores</Text>
+             </TouchableOpacity>
             </View>
       </ScrollView>
 
@@ -306,7 +364,7 @@ export default App = () => {
 
         </ScrollView>
 
-        {/* End Upcoming */}
+        {/* End Upcoming */} 
 
         <View>
         <Text style={{
@@ -409,7 +467,6 @@ export default App = () => {
 
          </Col>
 
-
             <Col style={{marginLeft:5, borderRadius:10, width:200 }}>
             <Card style={{backgroundColor:'#2A2B31'}}>
             <Card.Cover source = {require('../assets/images/card4.png')} style={styles.imageCard}/>
@@ -429,7 +486,6 @@ export default App = () => {
                 style={{width:10, height:10}}/></Paragraph>
              </Col>
           </Grid>
-
           <View>
              <Title style={styles.cardPrice}>Entry Fee: <Text>&#8358;</Text> 200</Title>
           </View>
@@ -545,16 +601,26 @@ export default App = () => {
 
         </View>
 
-
+       </ScrollView>
       </View>
-      </ScrollView>
+    
       <Navigation activeTab="home" />
       </View>
     );
-  // }
+  
 }
 
+
 const styles = StyleSheet.create({
+
+  pulldown: {
+    flex: 1,
+  },
+  scrollView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   body: {
     flex: 1,
     backgroundColor:'#18191D',
@@ -565,7 +631,7 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    marginTop:50,
+    marginTop:40,
     marginLeft:10,
     marginRight:15,
   },
@@ -748,4 +814,4 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
 
-})
+});

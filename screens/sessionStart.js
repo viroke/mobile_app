@@ -12,6 +12,7 @@ import { Actions } from 'react-native-router-flux';
 
 const { width, height } = Dimensions.get("window");
 
+
 class App extends React.Component {
     state = {
         fontLoaded: false,
@@ -45,8 +46,8 @@ class App extends React.Component {
             <View style={styles.body}>
             <ScrollView>
             <StatusBar barStyle="light-content" />
-            <Image source = {require('../assets/images/Rectangle8.png')}
-             style={styles.topImage}/>
+            <ImageBackground  source = {require('../assets/images/Rectangle8.png')}
+             style={styles.topImage}>
             <TouchableOpacity style={{position:'absolute', left:10,elevation:3 }} onPress = {returnBack}>
             <AntDesign style={styles.icon} name="arrowleft" size={24}/>
             </TouchableOpacity>
@@ -65,6 +66,7 @@ class App extends React.Component {
                  color: '#535D7E',
              }}>Today</Text></Title>
             </View>
+            </ImageBackground>
             <View style={styles.container}>
             <View>
             <Text style={styles.details}>Session Details</Text>
@@ -354,7 +356,9 @@ const styles = StyleSheet.create({
   },
 
   topImage:{
-    width: 375,
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
     height: 268,
     borderRadius: 5,
     opacity:0.75,
