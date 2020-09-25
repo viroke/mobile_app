@@ -11,49 +11,50 @@ import { GET_EVENTS } from '../api/subscribe'
 
 const { width, height } = Dimensions.get("window");
 
-export default App => {
+export default App = () => {
 
   const [isloading, setIsloading] = useState(false);
   const [error, setError] = useState("");
   const [events, setEvents] = useState([]);
 
+  const load = async () => {
+    try {
+      loadAssetsAsync();
+      loadUpcomingEvent();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    load();
+  }, []);
+
   const loadAssetsAsync =  async () => {
+    
     await Font.loadAsync({
       WorkSans: require("../assets/fonts/WorkSans-Bold.ttf"),
       WorkSansLight: require("../assets/fonts/WorkSans-Light.ttf"),
       WorkSansMedium: require("../assets/fonts/WorkSans-Medium.ttf"),
       WorkSansSemiBold: require("../assets/fonts/WorkSans-SemiBold.ttf")
     });
-
-    onLoad();
     
-  }
+  };
 
-  loadAssetsAsync();
 
   const goToSession = () => {
-    Actions.session()
+    Actions.session();
  }
 
- const onLoad = async () => {
+ const loadUpcomingEvent = () => {
 
-  data  = await GET_EVENTS(CALLBACK, onError);
-  setEvents(data);
   const CALLBACK = (response, data) => {
     setIsloading(false);
 
-    if (response.error) {
-    }
-
-    if (!response.success) {
-      let msg = response.errors;
-      setError(msg);
-    }
-
-    if (response.code === 200) {
-      console.log("miami ", response.data)
-    }else{
-      ToastAndroid.show("An error occured", ToastAndroid.SHORT);
+    if (response.length > 0) {
+        setEvents(response);
+    } else {
+      ToastAndroid.show("An error occured!", ToastAndroid.SHORT);
   }
 
 
@@ -61,19 +62,16 @@ export default App => {
 
   const onError = (err) => {
     setIsloading(false);
-
     setError("Server Error");
   };
 
+  GET_EVENTS(CALLBACK, onError);
+
 };
 
-// useEffect(() => {
-//   onLoad();
-// });
-
- if (!loadAssetsAsync) {
-  return <AppLoading/>;
-} else {
+//  if (!loadAssetsAsync) {
+//     return <AppLoading/>;
+// } else {
 
   // render() {
     
@@ -196,7 +194,6 @@ export default App => {
 
 {/* Upcoming session  */}
 
-
       <View>
         <Text style={{
           fontStyle: 'normal',
@@ -224,13 +221,13 @@ export default App => {
       <View style={{flexDirection: "row", justifyContent: "space-between", }} >
         <Grid>
             { events != null ? 
-                events.map((item, i) => {
+                events.map((item) => {
                   {
                     return (
                             <Col style={{marginLeft:5, borderRadius:10, width:200, }}>
                             <Card style={{backgroundColor:'#2A2B31'}}>
                             <TouchableOpacity  onPress = {goToSession}>
-                            <Card.Cover source = {require('../assets/images/card.png')} style={styles.imageCard}/>
+                            <Card.Cover source = {{uri: item.eventImages[0]}} style={styles.imageCard}/>
                             </TouchableOpacity>
                             <Card.Content>
                               <Title style={styles.cardTitle}>{item.title}</Title>
@@ -546,50 +543,6 @@ export default App => {
 
         </ScrollView>
 
-       {/* \Toast Bar session      */}
-        {/* <View style={styles.cardOverlayBottom}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: 10,
-          }}
-        >
-           <View>
-           <Image source = {require('../assets/images/spinner.png')}
-                style={{width:15, height:15, marginTop:7, marginLeft:20,}}  />
-         </View>
-
-         <View>
-         <Text style={{
-           fontStyle: 'normal',
-           fontWeight: '600',
-           fontSize: 14,
-           lineHeight: 20,
-           color: '#FFFFFF',
-           textAlign:'center',
-           marginTop:4,
-           opacity:0.65,
-           fontFamily:'WorkSansMedium',
-         }}>Wallet Balance:</Text>
-         </View>
-
-          <View>
-          <Text style={{
-            fontStyle: 'normal',
-            fontWeight: '900',
-            fontSize: 14,
-            lineHeight: 20,
-            color: '#FFFFFF',
-            marginTop:4,
-            opacity:0.70,
-            fontFamily:'WorkSansSemiBold',
-            marginRight:30
-          }}><Text>&#8358;</Text>29,000</Text>
-          </View>
-      </View>
-      </View> */}
-
 
         </View>
 
@@ -599,7 +552,7 @@ export default App => {
       <Navigation activeTab="home" />
       </View>
     );
-  }
+  // }
 }
 
 const styles = StyleSheet.create({
