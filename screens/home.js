@@ -57,12 +57,11 @@ export default App = () => {
       ToastAndroid.show("An error occured!", ToastAndroid.SHORT);
   }
 
-
   };
 
   const onError = (err) => {
     setIsloading(false);
-    setError("Server Error");
+    setError("Server Error");fix
   };
 
   GET_EVENTS(CALLBACK, onError);
