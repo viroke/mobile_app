@@ -1,11 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import { Actions } from 'react-native-router-flux';
-import Inputs from '../components/input.js';
-import UploadImage from '../components/uploadImage.js';
-import * as Font from 'expo-font';
+import { StatusBar } from "expo-status-bar";
+import React, { Component } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import { Actions } from "react-native-router-flux";
+import Inputs from "../components/input.js";
+import UploadImage from "../components/uploadImage.js";
+import * as Font from "expo-font";
 
 class ScrollViewExample extends Component {
   state = {
@@ -24,70 +30,70 @@ class ScrollViewExample extends Component {
       WorkSansSemiBold: require("../assets/fonts/WorkSans-SemiBold.ttf"),
     });
     this.setState({ fontLoaded: true });
-  } 
-  render() {
-  const  goToGetStarted = () => {
-      Actions.started()
-   }
-   if (!this.state.fontLoaded) {
-    return null; // render some progress indicator
   }
-  return (
-    <View>
-    <StatusBar style="auto" />
-    <View style={styles.container}>
-    <TouchableOpacity  onPress = {goToGetStarted}>
-    <AntDesign style={styles.icon} name="arrowleft" size={24}/>
-    </TouchableOpacity>
-    <ScrollView>
-      <Text style={styles.heading}>Complete Profile</Text>
-      <Text style={styles.subHeading}>Register via your company email to connect with the people of your company.</Text>
-      <UploadImage style="auto" />
-      <Inputs style="auto" />
-      </ScrollView>
-      </View> 
-    </View>
-   
-  )}
+  render() {
+    const goToGetStarted = () => {
+      Actions.started();
+    };
+    if (!this.state.fontLoaded) {
+      return null; // render some progress indicator
+    }
+    return (
+      <View>
+        <StatusBar style="auto" />
+        <View style={styles.container}>
+          <TouchableOpacity onPress={goToGetStarted}>
+            <AntDesign style={styles.icon} name="arrowleft" size={24} />
+          </TouchableOpacity>
+          <ScrollView>
+            <Text style={styles.heading}>Complete Profile</Text>
+            <Text style={styles.subHeading}>
+              Register via your company email to connect with the people of your
+              company.
+            </Text>
+            <UploadImage style="auto" />
+            <Inputs style="auto" />
+          </ScrollView>
+        </View>
+      </View>
+    );
+  }
 }
-export default ScrollViewExample
+export default ScrollViewExample;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor:'#18191D',
-    paddingTop:50,
-    paddingBottom:60,
+    backgroundColor: "#18191D",
+    paddingTop: 50,
+    paddingBottom: 60,
   },
 
-  heading:{
-    color:'#D3D3D3',
-    fontStyle: 'normal',
-    fontWeight: 'bold',
+  heading: {
+    color: "#D3D3D3",
+    fontStyle: "normal",
+    fontWeight: "bold",
     fontSize: 26,
-    marginTop:20,
+    marginTop: 20,
     lineHeight: 30,
     margin: 20,
     letterSpacing: -0.8,
-    fontFamily:'WorkSansMedium',
+    fontFamily: "WorkSansMedium",
   },
 
-  subHeading:{
-    color:'#919297',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
+  subHeading: {
+    color: "#919297",
+    fontStyle: "normal",
+    fontWeight: "normal",
     margin: 20,
-    marginTop:10,
+    marginTop: 10,
     lineHeight: 16,
     fontSize: 14,
     letterSpacing: -0.3,
-    fontFamily:'WorkSansMedium',
+    fontFamily: "WorkSansMedium",
   },
-  icon:{
-    color:'#2F80ED',
-    marginLeft:20,
-    marginTop:0,
+  icon: {
+    color: "#2F80ED",
+    marginLeft: 20,
+    marginTop: 0,
   },
 });
-
-
-
