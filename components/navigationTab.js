@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import IconBadge from 'react-native-icon-badge';
+import IconBadge from "react-native-icon-badge";
 import {
   View,
   Text,
@@ -15,7 +15,7 @@ const { width } = Dimensions.get("window");
 export default function Navigation(props) {
   state = {
     BadgeCount: 23,
- }
+  };
   const { activeTab } = props;
   return (
     <View style={styles.bottom}>
@@ -28,20 +28,33 @@ export default function Navigation(props) {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.link} onPress={() => Actions.discover()}>
-      <Feather name="film" 
-         size={24} 
-         color={activeTab === "video" ? "#2F80ED" : "#CDCCCE"} style={{ opacity:0.70,}} />
+        <Feather
+          name="film"
+          size={24}
+          color={activeTab === "video" ? "#2F80ED" : "#CDCCCE"}
+          style={{ opacity: 0.7 }}
+        />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.link} onPress={() => Actions.notification()}>
-      <Feather name="bell"
-       size={24} 
-       color={activeTab === "notification" ? "#2F80ED" : "#CDCCCE"} style={{ opacity:0.70,}}/>
+      <TouchableOpacity
+        style={styles.link}
+        onPress={() => Actions.notification()}
+      >
+        <Feather
+          name="bell"
+          size={24}
+          color={activeTab === "notification" ? "#2F80ED" : "#CDCCCE"}
+          style={{ opacity: 0.7 }}
+        />
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.link} onPress={() => Actions.profile()}>
-      <AntDesign name="user" 
-      size={24} color={activeTab === "profile" ? "#2F80ED" : "#CDCCCE"} style={{ opacity:0.70,}}/>
+        <AntDesign
+          name="user"
+          size={24}
+          color={activeTab === "profile" ? "#2F80ED" : "#CDCCCE"}
+          style={{ opacity: 0.7 }}
+        />
       </TouchableOpacity>
     </View>
   );

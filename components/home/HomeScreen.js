@@ -16,11 +16,11 @@ import {
 import { Col, Grid } from "react-native-easy-grid";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Card, Title, Paragraph } from "react-native-paper";
-import Navigation from "../components/navigationTab";
+import Navigation from "../navigationTab";
 import { Actions } from "react-native-router-flux";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
-import { GET_EVENTS } from "../api/subscribe";
+import { GET_EVENTS } from "../../api/subscribe";
 import Constants from "expo-constants";
 
 const { width, height } = Dimensions.get("window");
@@ -33,7 +33,6 @@ export default App = () => {
 
   const load = async () => {
     try {
-      loadAssetsAsync();
       loadUpcomingEvent();
     } catch (err) {
       console.log(err);
@@ -59,15 +58,6 @@ export default App = () => {
   useEffect(() => {
     load();
   }, []);
-
-  const loadAssetsAsync = async () => {
-    await Font.loadAsync({
-      WorkSans: require("../assets/fonts/WorkSans-Bold.ttf"),
-      WorkSansLight: require("../assets/fonts/WorkSans-Light.ttf"),
-      WorkSansMedium: require("../assets/fonts/WorkSans-Medium.ttf"),
-      WorkSansSemiBold: require("../assets/fonts/WorkSans-SemiBold.ttf"),
-    });
-  };
 
   const goToSession = () => {
     Actions.session();
@@ -157,7 +147,7 @@ export default App = () => {
             >
               <View style={{ marginRight: 3 }}>
                 <Card.Cover
-                  source={require("../assets/images/Rectangle5.png")}
+                  source={require("../../assets/images/Rectangle5.png")}
                   style={styles.image}
                 />
                 <Text style={styles.text}>Exclusive 1:1 Chat with Jarome</Text>
@@ -165,7 +155,7 @@ export default App = () => {
 
               <View style={{ marginRight: 3 }}>
                 <Card.Cover
-                  source={require("../assets/images/Rectangle6.png")}
+                  source={require("../../assets/images/Rectangle6.png")}
                   style={styles.image}
                 />
                 <Text style={styles.text}>Figchat with John</Text>
@@ -173,7 +163,7 @@ export default App = () => {
 
               <View style={{ marginRight: 3 }}>
                 <Card.Cover
-                  source={require("../assets/images/Rectangle5.png")}
+                  source={require("../../assets/images/Rectangle5.png")}
                   style={styles.image}
                 />
                 <Text style={styles.text}>Exclusive 1:1 Chat with Jarome</Text>
@@ -212,7 +202,7 @@ export default App = () => {
             <View style={styles.sliderImagecol}>
               <TouchableOpacity onPress={() => Actions.profile()}>
                 <Image
-                  source={require("../assets/images/Mask.png")}
+                  source={require("../../assets/images/Mask.png")}
                   style={styles.sliderImage}
                 />
                 <Text style={styles.textImage}>Jerome Bell</Text>
@@ -222,7 +212,7 @@ export default App = () => {
             <View style={styles.sliderImagecol}>
               <TouchableOpacity onPress={() => Actions.profile()}>
                 <Image
-                  source={require("../assets/images/Mask2.png")}
+                  source={require("../../assets/images/Mask2.png")}
                   style={styles.sliderImage}
                 />
                 <Text style={styles.textImage}>Ralph Edwards</Text>
@@ -232,7 +222,7 @@ export default App = () => {
             <View style={styles.sliderImagecol}>
               <TouchableOpacity onPress={() => Actions.profile()}>
                 <Image
-                  source={require("../assets/images/Mask3.png")}
+                  source={require("../../assets/images/Mask3.png")}
                   style={styles.sliderImage}
                 />
                 <Text style={styles.textImage}>Jenny Wilson</Text>
@@ -242,7 +232,7 @@ export default App = () => {
             <View style={styles.sliderImagecol}>
               <TouchableOpacity onPress={() => Actions.profile()}>
                 <Image
-                  source={require("../assets/images/Mask4.png")}
+                  source={require("../../assets/images/Mask4.png")}
                   style={styles.sliderImage}
                 />
                 <Text style={styles.textImage}>Albert Flores</Text>
@@ -252,7 +242,7 @@ export default App = () => {
             <View style={styles.sliderImagecol}>
               <TouchableOpacity onPress={() => Actions.profile()}>
                 <Image
-                  source={require("../assets/images/Mask4.png")}
+                  source={require("../../assets/images/Mask4.png")}
                   style={styles.sliderImage}
                 />
                 <Text style={styles.textImage}>Albert Flores</Text>
@@ -262,7 +252,7 @@ export default App = () => {
             <View style={styles.sliderImagecol}>
               <TouchableOpacity onPress={() => Actions.profile()}>
                 <Image
-                  source={require("../assets/images/Mask4.png")}
+                  source={require("../../assets/images/Mask4.png")}
                   style={styles.sliderImage}
                 />
                 <Text style={styles.textImage}>Albert Flores</Text>
@@ -341,7 +331,7 @@ export default App = () => {
                                     >
                                       Robert Fox{" "}
                                       <Image
-                                        source={require("../assets/images/Vector.png")}
+                                        source={require("../../assets/images/Vector.png")}
                                         style={{ width: 10, height: 10 }}
                                       />
                                     </Paragraph>
@@ -482,7 +472,7 @@ export default App = () => {
                     <Card style={{ backgroundColor: "#2A2B31" }}>
                       <TouchableOpacity onPress={goToSession}>
                         <Card.Cover
-                          source={require("../assets/images/card3.png")}
+                          source={require("../../assets/images/card3.png")}
                           style={styles.imageCard}
                         />
                       </TouchableOpacity>
@@ -504,7 +494,7 @@ export default App = () => {
                             >
                               Robert Fox{" "}
                               <Image
-                                source={require("../assets/images/Vector.png")}
+                                source={require("../../assets/images/Vector.png")}
                                 style={{ width: 10, height: 10 }}
                               />
                             </Paragraph>
@@ -590,7 +580,7 @@ export default App = () => {
                   <Col style={{ marginLeft: 5, borderRadius: 10, width: 200 }}>
                     <Card style={{ backgroundColor: "#2A2B31" }}>
                       <Card.Cover
-                        source={require("../assets/images/card4.png")}
+                        source={require("../../assets/images/card4.png")}
                         style={styles.imageCard}
                       />
                       <Card.Content>
@@ -612,7 +602,7 @@ export default App = () => {
                             >
                               Robert Fox{" "}
                               <Image
-                                source={require("../assets/images/Vector.png")}
+                                source={require("../../assets/images/Vector.png")}
                                 style={{ width: 10, height: 10 }}
                               />
                             </Paragraph>
@@ -696,7 +686,7 @@ export default App = () => {
                   <Col style={{ marginLeft: 5, borderRadius: 10, width: 200 }}>
                     <Card style={{ backgroundColor: "#2A2B31" }}>
                       <Card.Cover
-                        source={require("../assets/images/card2.png")}
+                        source={require("../../assets/images/card2.png")}
                         style={styles.imageCard}
                       />
                       <Card.Content>
@@ -718,7 +708,7 @@ export default App = () => {
                             >
                               Robert Fox{" "}
                               <Image
-                                source={require("../assets/images/Vector.png")}
+                                source={require("../../assets/images/Vector.png")}
                                 style={{ width: 10, height: 10 }}
                               />
                             </Paragraph>
