@@ -66,26 +66,27 @@ const carouselItems = [
   {
     backgroundColor: "#2A2B31",
     title: "1:1 video calls with your favorite celebrity",
-    subtitle: "Get an exclusive personal time for up to 10 min with your favorites for as low as N100",
+    subtitle:
+      "Get an exclusive personal time for up to 10 min with your favorites for as low as N100",
     image: <Image source={null} />,
   },
   {
     backgroundColor: "#2A2B31",
     title: "Unlimited treasure hunts.",
-    subtitle: "Get access to unlimited benefit hidden at different places in the app.",
+    subtitle:
+      "Get access to unlimited benefit hidden at different places in the app.",
     image: <Image source={null} />,
   },
 ];
 
 class OnboardingCarousel extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
     this.completeOnboarding = this.completeOnboarding.bind(this);
   }
 
   async completeOnboarding() {
-    await Storage.set("hasOnboarded", '1');
+    await Storage.set("hasOnboarded", "1");
     let onboarded = await Storage.get("hasOnboarded");
     this.props.navigation.navigate("GetStarted");
   }

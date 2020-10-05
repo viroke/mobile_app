@@ -5,14 +5,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import RootNavigation from "./components/app/RootNavigation";
 import * as Font from "expo-font";
 import { SafeAreaView } from "react-native-safe-area-view";
-import { Provider } from 'mobx-react';
+import { Provider } from "mobx-react";
 
 // Fonts
 import WorkSans from "./assets/fonts/WorkSans-Bold.ttf";
 import WorkSansLight from "./assets/fonts/WorkSans-Light.ttf";
 import WorkSansMedium from "./assets/fonts/WorkSans-Medium.ttf";
 import WorkSansSemiBold from "./assets/fonts/WorkSans-SemiBold.ttf";
-import Stores from './stores';
+import Stores from "./stores";
+import { enableScreens } from 'react-native-screens';
+enableScreens();
 
 class VirokeEntryPoint extends Component {
   state = {

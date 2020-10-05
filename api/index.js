@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = {
-  BASE_URL: 'https://api-staging.viroke.io/api/v1/'
+  BASE_URL: "https://api-staging.viroke.io/api/v1/",
   // BASE_URL: "http://localhost:3010/api/v1/",
 };
 

@@ -2,7 +2,6 @@ import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { View, Text, Button } from "react-native";
 
-import MainTabNavigator from "./MainTabNavigator";
 import Register from "../../screens/registration.js";
 import Onboarding from "../../screens/onboarding.js";
 import Session from "../../screens/sessionStart.js";
@@ -14,12 +13,13 @@ import Wallet from "../../screens/wallet.js";
 import HomeScreen from "../home/HomeScreen";
 import OnboardingScreen from "../onboarding/OnboardingScreen";
 import GetStartedScreen from "../get-started/GetStartedScreen";
+import SingleEventScreen from "../events/SingleEvent";
 
 const Stack = createStackNavigator();
 
 function RootNavigations(props) {
   return (
-    <Stack.Navigator initialRouteName={"Onboarding"} headerMode={false}>
+    <Stack.Navigator initialRouteName={"Home"} headerMode={false}>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="GetStarted" component={GetStartedScreen} />
@@ -29,7 +29,7 @@ function RootNavigations(props) {
       <Stack.Screen name="Discover" component={Discover} />
       <Stack.Screen name="Notification" component={Notification} />
       <Stack.Screen name="Wallet" component={Wallet} />
-      <Stack.Screen name="Main" component={MainTabNavigator} />
+      <Stack.Screen name="SingleEvent" component={SingleEventScreen} />
     </Stack.Navigator>
   );
 }

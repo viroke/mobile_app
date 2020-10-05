@@ -4,7 +4,6 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const halfWidth = width / 2;
 
-
 const styles = StyleSheet.create({
   container: {
     width: width,

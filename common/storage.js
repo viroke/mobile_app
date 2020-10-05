@@ -14,7 +14,10 @@ const StorageAPI = () => {
 
   const set = async (key, data) => {
     try {
-      return await AsyncStorage.setItem(`${STORAGE_TOKEN}:${key}`, JSON.stringify(data));
+      return await AsyncStorage.setItem(
+        `${STORAGE_TOKEN}:${key}`,
+        JSON.stringify(data)
+      );
     } catch (error) {
       // this kind of error should never happen
       console.log("StorageAPI:get:error could not save data", { key, data });
