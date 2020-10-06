@@ -5,6 +5,7 @@ import { Card, Title, Paragraph, Button } from "react-native-paper";
 import { Col, Grid } from "react-native-easy-grid";
 const { width, height } = Dimensions.get("window");
 import { clipText } from "../../../utils/helpers";
+import ImageLoader from '../../common/ImageLoader';
 
 const FullCard = (props) => {
   let navigation =
@@ -20,19 +21,16 @@ const FullCard = (props) => {
       }}
     >
       <Card style={{ backgroundColor: "#2A2B31" }}>
-        <TouchableOpacity
-          onPress={() =>
+        <ImageLoader
+          style={{ ...styles.imageCard, height: 120 }}
+          sourceObj={{ image: props.cardCoverImage }}
+          onPress={() => {
             navigation &&
             navigation.navigate("SingleEvent", {
               data: props.event,
             })
-          }
-        >
-          <Card.Cover
-            source={{ uri: props.cardCoverImage }}
-            style={{ ...styles.imageCard, height: 120 }}
-          />
-        </TouchableOpacity>
+          }}
+        />
         <Card.Content style={{ height: 150 }}>
           <Text ellipsizeMode='clip' numberOfLines={1} style={{ ...styles.cardTitle }}>{props.cardCoverText}</Text>
           <Grid>

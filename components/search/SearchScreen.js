@@ -54,9 +54,6 @@ class SearchScreen extends React.Component {
       <View style={styles.body}>
         <StatusBar barStyle="light-content" style={styles.status} />
         <View style={styles.container}>
-            <View>
-              <Text style={styles.title}>Discover</Text>
-            </View>
             <View style={styles.search}>
               <Searchbar
                 style={styles.searchTextField}
@@ -87,9 +84,8 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    marginTop: 20,
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 5,
+    marginRight: 0,
   },
 
   title: {
@@ -115,6 +111,8 @@ const styles = StyleSheet.create({
 
   search: {
     marginTop: 15,
+    marginBottom: 5,
+    marginRight: 5,
     color: "#FFFF",
   },
 

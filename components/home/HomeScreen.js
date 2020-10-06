@@ -62,36 +62,7 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.body}>
-        <StatusBar barStyle="light-content" style={styles.status} />
         <View style={styles.container}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <View>
-              <Text style={styles.title}> Home</Text>
-            </View>
-
-            {this.isAuthed() ? (
-              <View>
-                <TouchableOpacity>
-                  <SimpleLineIcons
-                    name="wallet"
-                    size={30}
-                    color="white"
-                    style={{
-                      transform: [{ rotateY: "180deg" }],
-                      opacity: 0.65,
-                    }}
-                  />
-                </TouchableOpacity>
-                <Text style={styles.iconLabel}>Wallet</Text>
-              </View>
-            ) : null}
-          </View>
-
           <ScrollView
             showsVerticalScrollIndicator={false}
             refreshControl={

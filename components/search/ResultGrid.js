@@ -8,7 +8,8 @@ import {
 } from 'react-native';
 var {width} = Dimensions.get('window');
 import * as _ from 'lodash';
-import MyImage from './MyImage';
+import ImageLoader from '../common/ImageLoader';
+import NameWithVerification from '../app/NameWithVerification';
 
 const ResultGrid = ({
   data,
@@ -35,32 +36,38 @@ const ResultGrid = ({
         <View style={{flexDirection: 'row'}}>
           <View style={groupedGridContainer}>
             <View style={styles.gridStyle}>
-              <MyImage
+              <ImageLoader
                 style={styles.imageThumbnail}
                 sourceObj={{ image: smallImage1.profileImage, tileText: smallImage1.fullName }}
                 onPress={() => {
                   onItemClick(smallImage1);
                 }}
-              />
+              >             
+                <NameWithVerification textStyle={{ color: "white", marginTop: 5 }} iconStyle={{ width: 12, height: 12, top: 6, marginLeft: 4 }} text={smallImage1.fullName} isVerified={true} />
+              </ImageLoader>
             </View>
             <View style={styles.gridStyle}>
-              <MyImage
+              <ImageLoader
                 style={styles.imageThumbnail}
                 sourceObj={{ image: smallImage2.profileImage, tileText: smallImage2.fullName }}
                 onPress={() => {
                   onItemClick(smallImage2);
                 }}
-              />
+              >
+                <NameWithVerification textStyle={{ color: "white", marginTop: 5 }} iconStyle={{ width: 12, height: 12, top: 6, marginLeft: 4 }} text={smallImage2.fullName} isVerified={true} />
+              </ImageLoader>
             </View>
           </View>
           <View style={styles.gridStyle}>
-            <MyImage
+            <ImageLoader
               style={styles.imageThumbnailLarge}
               sourceObj={{ image: largeImage.profileImage, tileText: largeImage.fullName }}
               onPress={() => {
                 onItemClick(largeImage);
               }}
-            />
+            >
+              <NameWithVerification textStyle={{ color: "white", marginTop: 5 }} iconStyle={{ width: 12, height: 12, top: 6, marginLeft: 4 }} text={largeImage.fullName} isVerified={true} />
+            </ImageLoader>
           </View>
         </View>
       );
@@ -69,32 +76,35 @@ const ResultGrid = ({
       return (
         <View style={{flexDirection: 'row'}}>
           <View style={styles.gridStyle}>
-            <MyImage
+            <ImageLoader
               style={styles.imageThumbnailLarge}
               sourceObj={{ image: largeImage.profileImage, tileText: largeImage.fullName }}
               onPress={() => {
                 onItemClick(largeImage);
               }}
-            />
+            > <NameWithVerification textStyle={{ color: "white", marginTop: 5 }} iconStyle={{ width: 12, height: 12, top: 6, marginLeft: 4 }} text={largeImage.fullName} isVerified={true} />
+              </ImageLoader>
           </View>
           <View style={groupedGridContainer}>
             <View style={styles.gridStyle}>
-              <MyImage
+              <ImageLoader
                 style={styles.imageThumbnail}
                 sourceObj={{ image: smallImage1.profileImage, tileText: smallImage1.fullName }}
                 onPress={() => {
                   onItemClick(smallImage1);
                 }}
-              />
+              ><NameWithVerification textStyle={{ color: "white", marginTop: 5 }} iconStyle={{ width: 12, height: 12, top: 6, marginLeft: 4 }} text={smallImage1.fullName} isVerified={true} />
+              </ImageLoader>
             </View>
             <View style={styles.gridStyle}>
-              <MyImage
+              <ImageLoader
                 style={styles.imageThumbnail}
                 sourceObj={{ image: smallImage2.profileImage, tileText: smallImage1.fullName }}
                 onPress={() => {
                   onItemClick(smallImage2);
                 }}
-              />
+              ><NameWithVerification textStyle={{ color: "white", marginTop: 5 }} iconStyle={{ width: 12, height: 12, top: 6, marginLeft: 4 }} text={smallImage1.fullName} isVerified={true} />
+              </ImageLoader>
             </View>
           </View>
         </View>
@@ -105,25 +115,26 @@ const ResultGrid = ({
   const renderSingleItem = (item, i) => {
     return (
       <View style={styles.gridStyle} key={i}>
-        <MyImage
+        <ImageLoader
           style={styles.imageThumbnail}
           sourceObj={{ image: item.profileImage, tileText: item.fullName }}
           onPress={() => {
             onItemClick(item);
           }}
-        />
+        ><NameWithVerification textStyle={{ color: "white", marginTop: 5 }} iconStyle={{ width: 12, height: 12, top: 6, marginLeft: 4 }} text={item.fullName} isVerified={true} />
+              </ImageLoader>
       </View>
     );
   };
 
-  const renderCell = (row) => {
+  const renderCell = (row, i) => {
     if (row.length >= columns && currentRow % groupEveryNthRow === 0) {
       currentRow++;
-      return <View>{renderGroupedItem(row)}</View>;
+      return <View key={i}>{renderGroupedItem(row)}</View>;
     }
     currentRow++;
     return (
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row'}} key={i}>
         {row.map((item, i) => {
           return renderSingleItem(item, i);
         })}
@@ -175,22 +186,22 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   imageThumbnail: {
-    height: width / 3 - 12,
-    width: width / 3 - 12,
+    height: width / 3 - 6,
+    width: width / 3 - 6,
     resizeMode: 'cover',
     alignSelf: 'flex-start',
     justifyContent: 'flex-start',
   },
   imageThumbnailLarge: {
-    height: width * 0.6 + 12,
-    width: width * 0.6 + 12,
+    height: width * 0.6 + 36,
+    width: width * 0.6 + 16,
     resizeMode: 'cover',
     alignSelf: 'flex-start',
     justifyContent: 'flex-start',
   },
   gridStyle: {
     margin: 4,
-    marginLeft: 0,
+    marginLeft: 0
   },
 });
 

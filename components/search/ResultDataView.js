@@ -34,7 +34,7 @@ export default function DataView(props) {
             columns={3}
             loading={false}
             onItemClick={(item) => {
-                navigation.push("HostProfile", { person: item })
+                navigation.navigate("HostProfile", { person: item })
             }}
             onEndReachedThreshold={400}
             onEndReached={(offset) => {
