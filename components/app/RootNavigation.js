@@ -20,12 +20,13 @@ import TabBar from "./TabBar";
 import ProfileNavigator from "../profiles/ProfileNavigator";
 import HomeNavigator from "../home/HomeNavigator";
 import SearchNavigator from "../search/SearchNavigator";
+import StartLiveNavigator from "../start-live/StartLiveNavigator";
 
 const Tab = createBottomTabNavigator();
 
 export function ButtomNavigation(props) {
   return (
-    <Tab.Navigator initialRouteName={"Home"} headerMode={false} tabBar={props => <TabBar {...props} />}>
+    <Tab.Navigator initialRouteName={"StartLiveNavigator"} headerMode={false} tabBar={props => <TabBar {...props} />}>
       {/* <Tab.Screen name="Home" component={HomeScreen} labelIcon={'home'} /> */}
       <Tab.Screen name="Home" component={HomeNavigator} />
       <Tab.Screen name="Discover" component={SearchNavigator} />
@@ -39,7 +40,7 @@ export function ButtomNavigation(props) {
       <Tab.Screen name="Session" component={Session} options={{ tabBarVisible: false }} />
       <Tab.Screen name="Wallet" component={Wallet} options={{ tabBarVisible: false }} />
 
-      {/* <Tab.Screen name="ProfileNavigator" component={ProfileNavigator} options={{ tabBarVisible: false }} /> */}
+      <Tab.Screen name="StartLiveNavigator" component={StartLiveNavigator} options={{ tabBarVisible: false }} />
 
     </Tab.Navigator>
   );

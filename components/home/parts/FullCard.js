@@ -17,7 +17,7 @@ const FullCard = (props) => {
       style={{
         marginLeft: 5,
         borderRadius: 10,
-        width: 200,
+        width: 250,
       }}
     >
       <Card style={{ backgroundColor: "#2A2B31" }}>

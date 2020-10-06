@@ -15,6 +15,7 @@ import WorkSansSemiBold from "./assets/fonts/WorkSans-SemiBold.ttf";
 import Stores from "./stores";
 import { enableScreens } from 'react-native-screens';
 enableScreens();
+import * as Permissions from 'expo-permissions';
 
 class VirokeEntryPoint extends Component {
   state = {
@@ -45,6 +46,11 @@ class VirokeEntryPoint extends Component {
     }
   }
 
+  alertIfRemoteNotificationsDisabledAsync = async () => {
+    const { status } = await Permissions.getAsync(Permissions.CAMERA);
+    console.log({ permission: status })
+  }
+
   _loadResourcesAsync = async () => {
     await Font.loadAsync({
       WorkSans,
@@ -52,6 +58,7 @@ class VirokeEntryPoint extends Component {
       WorkSansMedium,
       WorkSansSemiBold,
     });
+    await this.alertIfRemoteNotificationsDisabledAsync();
     // TODO: verify user token here to ensure access to api still granted
   };
 

@@ -1,17 +1,29 @@
 import * as React from "react";
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
+function HeaderRight(props){
+    const navigation = useNavigation();
+    return (
+        <View>
+            <Button 
+                mode="contained"
+                icon="camera"
+                onPress={() => navigation.navigate('StartLive')}
+                style={{
+                    backgroundColor: "red",
+                    marginRight: 15
+                }}>
+                <Text style={{textTransform: "capitalize"}}>{"Go Live"}</Text>
+            </Button>
+        </View>
+    )
+}
 export default function Header(title) {
     return ({
-        headerRight: props => <Button 
-          mode="contained"
-          icon="camera"
-          style={{
-            backgroundColor: "red",
-            marginRight: 15
-          }}><Text style={{textTransform: "capitalize"}}>Go Live</Text></Button> ,
-          headerLeft: props => <Text style={{
+        headerRight: (props) => <HeaderRight {...props} />,
+        headerLeft: props => <Text style={{
               height: 28,
               fontStyle: "normal",
               fontSize: 24,
