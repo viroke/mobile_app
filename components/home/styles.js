@@ -152,7 +152,6 @@ const styles = StyleSheet.create({
     fontFamily: "WorkSansMedium",
     opacity: 0.85,
   },
-
   cardPrice: {
     fontStyle: "normal",
     fontWeight: "500",

@@ -10,17 +10,15 @@ import {
 import organizerService from "../../../services/organizers";
 import PeopleCard from "../parts/PeopleCard";
 import styles from "../styles";
-import mockEvents from "../../../mock/mockEvents";
 
 export default function FeedView(props) {
   const [people, setPeople] = useState(null);
   const { stores, listTitle = "HOSTS", listView = "FlatCard", requestPath = "organizers" } = props;
 
+  const navigation = (stores && stores.ApplicationStore && stores.ApplicationStore.navigation);
   useEffect(() => {
     (async () => {
-      const peopleR =
-        mockEvents ||
-        (stores && stores.ApplicationStore && stores.ApplicationStore.people) ||
+      const peopleR = (stores && stores.ApplicationStore && stores.ApplicationStore.people) ||
         (await organizerService.getPeople(requestPath));
       setPeople(peopleR);
       if (stores && stores.ApplicationStore)
@@ -62,7 +60,7 @@ export default function FeedView(props) {
           {people
             ? people.map((person) => {
                 return (
-                  <PeopleCard person={person} key={person.id}/>
+                  <PeopleCard person={person} key={person.id} navigation={navigation} />
                 );
               })
             : null}

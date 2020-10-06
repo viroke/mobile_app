@@ -30,10 +30,10 @@ const FullCard = (props) => {
         >
           <Card.Cover
             source={{ uri: props.cardCoverImage }}
-            style={{ ...styles.imageCard, height: 100 }}
+            style={{ ...styles.imageCard, height: 120 }}
           />
         </TouchableOpacity>
-        <Card.Content>
+        <Card.Content style={{ height: 150 }}>
           <Text ellipsizeMode='clip' numberOfLines={1} style={{ ...styles.cardTitle }}>{props.cardCoverText}</Text>
           <Grid>
             <Col>
@@ -50,10 +50,10 @@ const FullCard = (props) => {
                 }}
               >
                 {`${props.user} `}
-                {/* <Image
-                                    source={require("../../../assets/images/Vector.png")}
-                                    style={{ width: 10, height: 10 }}
-                                /> */}
+                <Image
+                    source={require("../../../assets/images/Vector.png")}
+                    style={{ width: 10, height: 10 }}
+                />
               </Paragraph>
             </Col>
           </Grid>

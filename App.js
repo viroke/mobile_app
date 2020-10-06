@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { AppRegistry, StatusBar, Platform, Text, View } from "react-native";
 import { AppLoading } from "expo";
 import { NavigationContainer } from "@react-navigation/native";
-import RootNavigation from "./components/app/RootNavigation";
+import { ButtomNavigation } from "./components/app/RootNavigation";
 import * as Font from "expo-font";
 import { SafeAreaView } from "react-native-safe-area-view";
 import { Provider } from "mobx-react";
@@ -38,7 +38,7 @@ class VirokeEntryPoint extends Component {
         <Provider {...Stores}>
           {Platform.OS === "ios" && <StatusBar barStyle="default" />}
           <NavigationContainer>
-            <RootNavigation />
+            <ButtomNavigation />
           </NavigationContainer>
         </Provider>
       );

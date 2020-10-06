@@ -20,7 +20,6 @@ import * as Font from "expo-font";
 // import styles from "./styles";
 import { inject, observer } from "mobx-react";
 import UpcomingEventsView from "../home/data-views/UpcomingView";
-import ButtomNavigationTab from "../app/ButtomNavigationTab";
 import { AntDesign } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/FontAwesome5";
 const { width, height } = Dimensions.get("window");
@@ -136,24 +135,25 @@ class SingleEvent extends React.Component {
                     {this.event.ticketPrice}
                   </Text>
                 </View>
-                <Button
-                  mode="contained"
-                  onPress={() => console.log("Pressed")}
-                  style={styles.submitButton}
-                >
-                  <Text style={{ textTransform: "capitalize" }}>Join.</Text>
-                </Button>
+                <TouchableOpacity onPress={() => console.log("Thus")}>
+                    <Button
+                        mode="contained"
+                        style={styles.submitButton}
+                    >
+                        <Text style={{ textTransform: "capitalize" }}>Join.</Text>
+                    </Button>
+                </TouchableOpacity>
               </View>
 
               {/* card scroll view */}
               <UpcomingEventsView
-                listTitle={"Sessions By Olamide"}
+                listTitle={"Similar Sessions"}
                 listView={"FullCard"}
               />
             </View>
           </ScrollView>
         </View>
-      </ParallaxScrollView>
+      </ParallaxScrollView> 
     );
   }
 }

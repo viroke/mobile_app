@@ -4,7 +4,7 @@ import { Text, View, TouchableOpacity, Image } from "react-native";
 
 const PeopleCard = (props) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => props.navigation && props.navigation.navigate("HostProfile", { person: props.person } )}>
     <View style={{
         flex: 1,
         flexDirection: 'column',

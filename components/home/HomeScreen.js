@@ -16,7 +16,6 @@ import {
 import { Col, Grid } from "react-native-easy-grid";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Card, Title, Paragraph } from "react-native-paper";
-import Navigation from "../navigationTab";
 import { Actions } from "react-native-router-flux";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
@@ -29,7 +28,6 @@ import PeopleCard from "./parts/PeopleCard";
 import UpcomingEventsView from "./data-views/UpcomingView";
 import PeopleDataView from "./data-views/PeopleView";
 import FeedView from "./data-views/FeedView";
-import ButtomNavigationTab from "../app/ButtomNavigationTab";
 
 @inject("AuthenticationStore", "UIStore", "ApplicationStore")
 @observer
@@ -128,11 +126,6 @@ class HomeScreen extends React.Component {
             />
           </ScrollView>
         </View>
-
-        <ButtomNavigationTab
-          activeTab="home"
-          navigation={this.props.navigation}
-        />
       </View>
     );
   }

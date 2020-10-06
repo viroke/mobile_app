@@ -7,7 +7,7 @@ const eventService = () => {
       let { data: body } = response;
       return (body.data && body.data.events) || [];
     } catch (error) {
-      console.log(`getUpcomingEvents error`, { e });
+      console.log(`getUpcomingEvents error`, { error });
       return [];
     }
   };
@@ -18,7 +18,7 @@ const eventService = () => {
       let { data: body } = response;
       return (body.data && body.data.events) || [];
     } catch (error) {
-      console.log(`getUpcomingEvents error`, { e });
+      console.log(`getUpcomingEvents error`, { error });
       return [];
     }
   };
