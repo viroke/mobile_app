@@ -4,6 +4,7 @@ import { AppLoading } from "expo";
 import { NavigationContainer } from "@react-navigation/native";
 import { ButtomNavigation } from "./components/app/RootNavigation";
 import * as Font from "expo-font";
+import { Asset } from 'expo-asset';
 import { SafeAreaView } from "react-native-safe-area-view";
 import { Provider } from "mobx-react";
 
@@ -52,12 +53,15 @@ class VirokeEntryPoint extends Component {
   }
 
   _loadResourcesAsync = async () => {
+    await Asset.loadAsync([
+      require('./assets/images/live-end-bg-3.jpg'),      
+    ]);
     await Font.loadAsync({
       WorkSans,
       WorkSansLight,
       WorkSansMedium,
       WorkSansSemiBold,
-    });
+    })
     await this.alertIfRemoteNotificationsDisabledAsync();
     // TODO: verify user token here to ensure access to api still granted
   };

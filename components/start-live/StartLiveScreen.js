@@ -108,7 +108,7 @@ class StartLiveScreen extends React.Component {
                         <Button 
                             mode="contained"
                             icon="camera"
-                            onPress={() => navigation.navigate('StartLive')}
+                            onPress={() => this.props.navigation.navigate('LiveEndedScreen')}
                             style={{
                                 backgroundColor: "red",
                                 height: 40,

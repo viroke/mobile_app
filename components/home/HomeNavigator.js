@@ -9,6 +9,7 @@ const { width, height } = Dimensions.get("window");
 import { Button } from 'react-native-paper';
 import { SimpleLineIcons } from "@expo/vector-icons";
 import GoLiveNavHeader from "../app/GoLiveNavHeader";
+import LiveViewDetails from "../events/LiveViewDetails";
 
 let Stack = createStackNavigator();
 
@@ -33,6 +34,7 @@ export default function Navigator(props) {
       <Stack.Screen name="SingleEvent" component={SingleEventScreen} options={{ headerShown: false }} />
       <Stack.Screen name="HostProfile" component={HostProfileScreen} options={{ headerShown: false }}/>
       <Stack.Screen name="StartLive" component={StartLiveScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="LiveViewDetails" component={LiveViewDetails} options={{ headerShown: false }}/>
     </Stack.Navigator>
   );
 }

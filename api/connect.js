@@ -3,7 +3,7 @@ import Storage from "../common/storage";
 
 export const endpoints = {
   STAGING: "https://api-staging.viroke.io/api/v1/",
-  DEVELOPMENT: "http://192.168.88.253:3010/api/v1/",
+  DEVELOPMENT: "http://192.168.88.81:3010/api/v1/",
 };
 
 let APP_ENVIRONMENT = (process.env.NODE_ENV || "development").toUpperCase();

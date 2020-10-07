@@ -32,11 +32,11 @@ export default function Header(title) {
               color: "#D3D3D3",
               fontFamily: "WorkSans",
               marginLeft: 7
-            }}> {title} </Text>,
-          headerStyle: {
+        }}> {title} </Text>,
+        headerStyle: {
             backgroundColor: '#18191D',
             borderColor: '#18191D',
             shadowColor: 'transparent'
-          }
+        }
     });
 }

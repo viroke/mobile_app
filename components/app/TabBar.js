@@ -11,9 +11,10 @@ let routeIconHash = {
 
 export default function TabBar({ state, descriptors, navigation }) {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
-//   if (focusedOptions.tabBarVisible === false) {
-//     return null;
-//   }
+  // console.log({ focusedOptions, descriptors })
+  // if (focusedOptions.tabBarVisible == false) {
+  //   return null;
+  // }
 
   return (
     <View style={{ flexDirection: 'row', backgroundColor: "#1D2024" }}>

@@ -26,7 +26,7 @@ const FullCard = (props) => {
           sourceObj={{ image: props.cardCoverImage }}
           onPress={() => {
             navigation &&
-            navigation.navigate("SingleEvent", {
+            navigation.navigate("LiveViewDetails", {
               data: props.event,
             })
           }}

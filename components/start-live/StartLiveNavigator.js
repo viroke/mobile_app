@@ -2,6 +2,7 @@ import * as React from "react";
 import { Image, View, Text, Dimensions } from 'react-native';
 import { createStackNavigator } from "@react-navigation/stack";
 import StartLiveScreen from "./StartLiveScreen";
+import LiveEndedScreen from "./LiveEndedScreen";
 const { width, height } = Dimensions.get("window");
 import { Button } from 'react-native-paper';
 import { SimpleLineIcons } from "@expo/vector-icons";
@@ -25,8 +26,9 @@ function HomeHeader() {
 
 export default function Navigator(props) {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName={"StartLiveScreen"}>
       <Stack.Screen name="StartLiveScreen" component={StartLiveScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="LiveEndedScreen" component={LiveEndedScreen} tabBarVisible={false} options={{ headerShown: false, tabBarVisible: false }} />
     </Stack.Navigator>
   );
 }

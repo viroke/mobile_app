@@ -52,7 +52,7 @@ class SearchScreen extends React.Component {
   render() {
     return (
       <View style={styles.body}>
-        <StatusBar barStyle="light-content" style={styles.status} />
+        <StatusBar barStyle="light-content"/>
         <View style={styles.container}>
             <View style={styles.search}>
               <Searchbar
