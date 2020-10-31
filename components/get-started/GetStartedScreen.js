@@ -20,7 +20,6 @@ import Storage from "../../common/storage";
 // import Spinner from 'react-native-loading-spinner-overlay';
 import { Button } from "react-native-paper";
 import { SimpleAnimation } from "react-native-simple-animations";
-import { saveToken } from "../../store";
 import NotificationComponent from "../app/Notification";
 import styles from "./styles";
 

@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Image, TouchableOpacity, Text, SafeAreaView, Animated, Alert, StyleSheet, Dimensions } from 'react-native';
 import get from 'lodash/get';
-import { NodePlayerView } from 'react-native-nodemediaclient';
 const { width, height } = Dimensions.get('window');
+import {Video} from "expo-av";
+import { RtmpView } from 'react-native-rtmpview';
 
 export default class Viewer extends Component {
   state = {
-      inputUrl: "rtmp://192.168.88.81:19000/live/SkC3AKsUD"
+      inputUrl: "rtmp://192.168.88.81:19000/live/SkC3AKsUD",
+      player: null
   }
   constructor(props) {
     super(props);
@@ -24,23 +26,24 @@ export default class Viewer extends Component {
     if (this.nodePlayerView) this.nodePlayerView.stop();
   }
 
-  renderNodePlayerView = () => {
-    const { inputUrl } = this.state;
-    if (!inputUrl) return null;
-    return (
-      <NodePlayerView
-        style={styles.playerView}
-        ref={(vb) => {
-          this.nodePlayerView = vb;
-        }}
-        inputUrl={inputUrl}
-        scaleMode="ScaleAspectFit"
-        bufferTime={300}
-        maxBufferTime={1000}
-        autoplay
-      />
-    );
-  };
+  renderRTMPPlayerView = () => {
+      const { inputUrl } = this.state;
+      if (!inputUrl) return null;
+      return (
+          <RtmpView
+            style={styles.playerView}
+            shouldMute={true}
+            ref={e => { this.player = e; }}
+            onPlaybackState={(data) => {
+                console.log("handlePlaybackState",{data});
+            }}
+            onFirstVideoFrameRendered={(data) => {
+                console.log("handleFirstVideoFrameRendered",{data});
+            }}
+            url="rtmp://127.0.0.1/live/SkC3AKsUD"
+        />
+      )
+  }
 
   render() {
     /**
@@ -48,7 +51,7 @@ export default class Viewer extends Component {
      */
     return (
       <View style={styles.container}>
-        {this.renderNodePlayerView()}
+        {this.renderRTMPPlayerView()}
       </View>
     );
   }

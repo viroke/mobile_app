@@ -26,7 +26,6 @@ import ParallaxScrollView from "react-native-parallax-scroll-view";
 import { LinearGradient } from "expo-linear-gradient";
 import UpcomingEventsView from "../home/data-views/UpcomingView";
 import { inject, observer } from "mobx-react";
-import ButtomNavigationTab from "../app/ButtomNavigationTab";
 import { useIsFocused } from '@react-navigation/native'; 
 
 @inject("AuthenticationStore", "UIStore", "ApplicationStore")

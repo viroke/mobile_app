@@ -1,23 +1,33 @@
 import * as React from "react";
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { Feather } from "@expo/vector-icons";
 
 let routeIconHash = {
     'Home': 'home',
-    'Discover': 'film',
+    'StartLiveNavigator': 'home',
+    'Discover': 'search',
     'Notification': 'bell',
-    'Profile': 'user'
+    'Wallet': 'activity',
+    'Profile': 'user',
+    'SessionsNavigator': 'film'
 }
+// import Svg, {
+//   G,
+//   Path,
+//   Rect,
+//   Defs,
+//   ClipPath,
+// } from 'react-native-svg';
 
 export default function TabBar({ state, descriptors, navigation }) {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
   // console.log({ focusedOptions, descriptors })
-  // if (focusedOptions.tabBarVisible == false) {
-  //   return null;
-  // }
+  if (focusedOptions.tabBarVisible == false) {
+    return null;
+  }
 
   return (
-    <View style={{ flexDirection: 'row', backgroundColor: "#1D2024" }}>
+    <View style={{ flexDirection: 'row', backgroundColor: "#1D2024", height: 50 }}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         if(options.tabBarVisible === false) return null;
@@ -57,13 +67,13 @@ export default function TabBar({ state, descriptors, navigation }) {
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={{ flex: 1, margin: 20 }}
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
             key={index}
           >
             <Feather
-                name={routeIconHash[labelIcon]}
-                size={24}
-                color={isFocused ? "#2F80ED" : "#CDCCCE"}
+                  name={routeIconHash[labelIcon]}
+                  size={24}
+                  color={isFocused ? "#2F80ED" : "#CDCCCE"}
                 />
           </TouchableOpacity>
         );

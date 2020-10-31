@@ -19,7 +19,6 @@ import { Card, Title, Paragraph } from "react-native-paper";
 import { Actions } from "react-native-router-flux";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
-import { GET_EVENTS } from "../../api/subscribe";
 import Constants from "expo-constants";
 import styles from "./styles";
 import { inject, observer } from "mobx-react";

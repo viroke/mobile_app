@@ -1,15 +1,17 @@
 import { configure, observable, action, toJS, runInAction } from "mobx";
 import { setClassProps, isEmpty } from "../utils/helpers";
 import * as AuthenticationAPI from "../api/authentication";
+import userService from "../services/userService";
 import Storage from "../common/storage";
 
 export default class AuthenticationStore {
   @observable navigation = {};
-  @observable accountDetails = {};
+  @observable currentUser = {};
   @observable loading = false;
   @observable showPasswordInput = false;
   @observable showRegistrationInput = false;
   @observable isAuthed = false;
+  @observable isReloadingUser = false;
 
   @observable signinCredentials = {
     email: "williamscalg@gmail.com",
@@ -25,14 +27,14 @@ export default class AuthenticationStore {
 
   @action
   updateAccountDetails = async (details) => {
-    this.accountDetails = details;
+    this.currentUser = details;
     this.isAuthed = true;
-    await Storage.set("user-account-details", this.accountDetails);
-    return this.accountDetails;
+    await Storage.set("user-account-details", this.currentUser);
+    return this.currentUser;
   };
 
   @action
-  handleUserAuthenticationRequestComplete = async (fullResponse) => {
+  handleUserAuthenticationRequestComplete = async (fullResponse, autonavigate) => {
     let { code, data = {}, error } = (fullResponse && fullResponse.data) || {};
     let { bearerToken, expiresIn, user } = data;
     let isSuccess = !error && bearerToken;
@@ -45,7 +47,10 @@ export default class AuthenticationStore {
       AuthenticationAPI.AUTHENTICATION_ERROR_MAP[code] ||
       "Unknown error occured.";
     this.injectedStores.UIStore && this.injectedStores.UIStore.notify(message);
-    if (isSuccess) this.navigation.navigate("Home");
+    this.loading = false;
+
+    if (isSuccess && autonavigate && this.navigation) return this.navigation.navigate("Home");
+    return user;
   };
 
   @action
@@ -58,16 +63,26 @@ export default class AuthenticationStore {
   };
 
   @action
-  authenticate = async () => {
+  authenticate = async ({autonavigate = true}) => {
     this.loading = true;
     if (!this.showPasswordInput)
       this.onVerifyEmailComplete(
         await AuthenticationAPI.verifyEmail(this.signinCredentials.email)
       );
     else
-      this.handleUserAuthenticationRequestComplete(
-        await AuthenticationAPI.login(this.signinCredentials)
+      return this.handleUserAuthenticationRequestComplete(
+        await AuthenticationAPI.login(this.signinCredentials),
+        autonavigate
       );
-    this.loading = false;
   };
+
+  @action
+  refreshCurrentUser = async () => {
+    this.isReloadingUser = true;
+    let user = await userService.me();
+    if(user) await this.updateAccountDetails(user);
+    // logout here if no user
+    this.isReloadingUser = false;
+  };
+
 }

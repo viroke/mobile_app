@@ -109,7 +109,7 @@ class Wallet extends React.Component {
                   <Text
                     style={{
                       color: "#011627",
-                      fontSize: 38,
+                      fontSize: 20,
                       fontFamily: "WorkSansMedium",
                     }}
                   >
@@ -406,7 +406,6 @@ class Wallet extends React.Component {
             </View>
           </View>
         </ScrollView>
-        <Navigation activeTab="home" />
       </View>
     );
   }

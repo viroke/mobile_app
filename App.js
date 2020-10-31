@@ -7,6 +7,7 @@ import * as Font from "expo-font";
 import { Asset } from 'expo-asset';
 import { SafeAreaView } from "react-native-safe-area-view";
 import { Provider } from "mobx-react";
+import Storage from "./common/storage";
 
 // Fonts
 import WorkSans from "./assets/fonts/WorkSans-Bold.ttf";
@@ -55,6 +56,9 @@ class VirokeEntryPoint extends Component {
   _loadResourcesAsync = async () => {
     await Asset.loadAsync([
       require('./assets/images/live-end-bg-3.jpg'),      
+      require('./assets/mocks/Wallet.png'),    
+      require('./assets/mocks/Wallet-blur.png'),
+      require('./assets/mocks/SessionEnd-blur.png'),    
     ]);
     await Font.loadAsync({
       WorkSans,
@@ -63,7 +67,6 @@ class VirokeEntryPoint extends Component {
       WorkSansSemiBold,
     })
     await this.alertIfRemoteNotificationsDisabledAsync();
-    // TODO: verify user token here to ensure access to api still granted
   };
 
   _handleLoadingError = (error) => {
@@ -72,7 +75,20 @@ class VirokeEntryPoint extends Component {
     console.warn(error);
   };
 
-  _handleFinishLoading = () => {
+  _intializeCurrentUser = async () => {
+    const isOnboarded = await Storage.get("isOnboarded");
+    Stores.ApplicationStore.isOnboarded = isOnboarded;
+    
+    // TODO: verify user token here to ensure access to api still granted
+    const currentUser = await Storage.get("user-account-details");
+    const token = await Storage.get("api-access-token");
+    if(currentUser && token) {
+      await Stores.AuthenticationStore.refreshCurrentUser();
+    }
+  }
+
+  _handleFinishLoading = async () => {
+    await this._intializeCurrentUser();
     this.setState({ isLoadingComplete: true });
   };
 }

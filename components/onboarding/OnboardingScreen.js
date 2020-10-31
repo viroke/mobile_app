@@ -86,9 +86,8 @@ class OnboardingCarousel extends Component {
   }
 
   async completeOnboarding() {
-    await Storage.set("hasOnboarded", "1");
-    let onboarded = await Storage.get("hasOnboarded");
-    this.props.navigation.navigate("GetStarted");
+    await Storage.set("isOnboarded", "1");
+    this.props.navigation.navigate("StartLiveNavigator");
   }
 
   render() {

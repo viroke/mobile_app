@@ -7,56 +7,46 @@ import {
   ScrollView,
   StatusBar,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  Keyboard,  
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView
 } from "react-native";
 import { Button } from 'react-native-paper';
 import { inject, observer } from "mobx-react";
 import { Camera } from 'expo-camera';
 import CameraView from '../common/CameraView';
+import { Feather } from "@expo/vector-icons";
+import { Modalize } from 'react-native-modalize';
+import { CustomTextInput, CustomTextInputWithIcon } from "../common/CustomFormElements";
+import GoLiveTabs from './GoLiveTabs';
+import UploadImage from "../common/uploadImage.js";
 
 const { width, height } = Dimensions.get("window");
+const ModalHeader = ({ text }) => (
+    <View>
+        <Text style={{ textAlign: 'center', fontSize: 21, fontFamily: "WorkSansSemiBold", padding: 10, color: '#BDBDBD'}}>{text}</Text>
+    </View>
+);
 
-@inject("AuthenticationStore", "UIStore", "ApplicationStore")
-@observer
 class StartLiveScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    props.ApplicationStore.navigation = props.navigation;
-    this.props.ApplicationStore.setClassProps(
-      [
-        {
-          name: "UIStore",
-          value: this.props.UIStore,
-        },
-        {
-          name: "AuthenticationStore",
-          value: this.props.AuthenticationStore,
-        },
-      ],
-      this.props.ApplicationStore.injectedStores
-    );
-
-    this.stores = {
-      ApplicationStore: props.ApplicationStore,
-      AuthenticationStore: props.AuthenticationStore,
-      UIStore: props.UIStore,
-    };
+    this.goLiveModalRef = React.createRef();
   }
 
-  isAuthed() {
-    return this.props.AuthenticationStore.isAuthed;
-  }
-
-
+  
   render() {
     return (
       <CameraView 
         blur={true}
         renderComponentOnView={(cameraProps) => {
             let [cameraPreviewMode, setCameraPreviewMode] = useState(cameraProps.hasCameraAccess ? 'enabled' : 'disabled');
+            let [ticketPrice, setTicketPrice] = useState(null);
+            let [noAnimate, setNoAnimate] = useState(false);
 
-            let toggleCameraPreview = async () => {
+            let toggleCameraPreview3Step = async () => {
                 if(!cameraProps.camera) return;
                 switch (cameraPreviewMode) {
                     case 'enabled':
@@ -75,21 +65,56 @@ class StartLiveScreen extends React.Component {
                         break;
                 }
             }
+
+            let toggleCameraPreview2Step = async () => {
+                if(!cameraProps.camera) return;
+                switch (cameraPreviewMode) {
+                    case 'enabled':
+                            await cameraProps.camera.pausePreview();
+                            setCameraPreviewMode('disabled');
+                        break;
+                    case 'disabled':
+                            setCameraPreviewMode('enabled');
+                            await cameraProps.camera.resumePreview();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            const showGoLiveModal = () => {
+                if(this.goLiveModalRef.current) this.goLiveModalRef.current.open();
+                Keyboard.dismiss();
+            }
+
+            const onGoLivePress = () => {
+              if(this.props.stores.AuthenticationStore.isAuthed) showGoLiveModal()
+              else this.props.openAuthentication(() => {
+                showGoLiveModal();
+              });
+            }
+
+            onGoLivePress.bind(this);
             return (
-                <View style={{...styles.body, backgroundColor: (cameraPreviewMode === 'disabled') ? '#18191D' : 'transparent' }}>
+              <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
+                <View style={{...styles.body, backgroundColor: (cameraPreviewMode === 'disabled') ? '#18191D' : 'transparent', elevation: 0 }}>
                 <StatusBar barStyle="light-content" style={styles.status} />
                 <View style={styles.stackViewContainer}>
                     <View style={{}}>
-                        <Text style={styles.header}> Welcome to Viroke Live </Text>
+                        <Text style={styles.header}> Welcome{this.props.stores.AuthenticationStore.isAuthed ? ", " +this.props.stores.AuthenticationStore.currentUser.fullName : " to Viroke Creator"} </Text>
                     </View>
                     <View style={{ margin: 10 }}>
-                        <Text style={styles.paragraph}> You can create your own session or view other sessions. </Text>
+                        <Text style={styles.paragraph}> You can create your own session or view other sessions. {this.props.stores.AuthenticationStore.payoutBanks || 'null'}</Text>
                     </View>
+                    
                     <View style={{ }}>
+                    
                         <TextInput
                             placeholder={"Enter ticket price"}
                             placeholderTextColor={'#BDBDBD'}
-                            onChangeText={text => console.log(text)}
+                            onChangeText={text => setTicketPrice(text)}
+                            keyboardType='numeric'
+                            keyboardAppearance='dark'
                             style={{
                                 color: "#BDBDBD", 
                                 height: 48, 
@@ -104,21 +129,25 @@ class StartLiveScreen extends React.Component {
                             }}
                         />
                     </View>
+                    
+
                     <View style={{ marginTop: 10 }}>
                         <Button 
                             mode="contained"
-                            icon="camera"
-                            onPress={() => this.props.navigation.navigate('LiveEndedScreen')}
+                            icon="video"
+                            onPress={onGoLivePress}
                             style={{
-                                backgroundColor: "red",
+                                backgroundColor: "#D95148",
                                 height: 40,
-                                justifyContent: 'center'
-                            }}>
+                                justifyContent: 'center',
+                                elevation: 0
+                            }}
+                            contentStyle={{ height: 40 }}>
                             <Text style={{textTransform: "capitalize", textAlign: 'center'}}>{"Go Live"}</Text>
                         </Button>
                     </View>
                     <View style={{ marginTop: 30 }}>
-                        <TouchableOpacity onPress={() => toggleCameraPreview() }>
+                        <TouchableOpacity onPress={() => toggleCameraPreview2Step() }>
                             <Text style={{textTransform: "capitalize", textAlign: 'center', color: "#2F80ED", padding: 20}}>
                                 { (cameraPreviewMode === 'enabled') && "Disable My Camera." }
                                 { (cameraPreviewMode === 'hang') && "Disable My Camera Completely." }
@@ -127,7 +156,18 @@ class StartLiveScreen extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
+
+                <Modalize
+                    ref={this.goLiveModalRef}
+                    modalStyle={{ backgroundColor: "#18191D" }}
+                    modalHeight={400}
+                    HeaderComponent={<ModalHeader text={"Go Live"}/>}
+                    keyboardShouldPersistTaps={true}
+                >
+                  <GoLiveTabs ticketPrice={ticketPrice} noAnimate={noAnimate}/>
+                </Modalize>
                 </View>
+                </TouchableWithoutFeedback>
             )
         }}>
       </CameraView>

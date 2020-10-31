@@ -19,6 +19,11 @@ export function CustomTextInput(props) {
             }}
             secureTextEntry={props.secureTextEntry}
             icon={props.icon}
+            keyboardType={props.keyboardType || 'default'}
+            multiline={props.multiline}
+            editable={props.editable}
+            autoCorrect={props.autoCorrect || false}
+            maxLength={props.maxLength}
         />
     )
 }
