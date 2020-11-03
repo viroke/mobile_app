@@ -88,8 +88,8 @@ export default observer(function AuthedComponentWrapper(props) {
                     {typeof BlurBackground === 'function' && <BlurBackground />}
                     <BlurView intensity={100} tint={'dark'} style={{position: 'absolute', height: "100%", width: '100%'}}>
                         <View style={{ width, height, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={styles.headText}>See your earnings.</Text>
-                            <Text style={{ color: "#BDBDBD", fontFamily: 'WorkSansMedium', fontSize: 16, margin: 20, textAlign: 'center' }}>Our secured wallet system allows you to withdraw your earning and see your transaction history.</Text>
+                            <Text style={styles.headText}>{props.authHeaderText || "Oops! Can't open this page."}</Text>
+                            <Text style={{ color: "#BDBDBD", fontFamily: 'WorkSansMedium', fontSize: 16, margin: 20, textAlign: 'center' }}>{props.authHeaderDesc || "It looks like you are trying a page that requires an account. Kindly setup a quick account to continue."}</Text>
                             <Button 
                                 mode="contained"
                                 icon="shield"

@@ -16,6 +16,7 @@ import StartLiveNavigator from "../start-live/StartLiveNavigator";
 
 import LiveNavigator from "../live/LiveNavigator";
 import WalletNavigator from "../wallet/WalletNavigator";
+import SessionsNavigator from "../sessions/SessionsNavigator";
 
 import LiveEndedScreen from "../start-live/LiveEndedScreen";
 import Stores from "../../stores";
@@ -30,7 +31,7 @@ export function ButtomNavigation(props) {
       {/* <Tab.Screen name="Home" component={HomeNavigator} /> */}
       <Tab.Screen name="StartLiveNavigator" component={StartLiveNavigator} />
       <Tab.Screen name="Wallet" component={WalletNavigator} />
-      <Tab.Screen name="SessionsNavigator" component={SearchNavigator} />
+      <Tab.Screen name="SessionsNavigator" component={SessionsNavigator} />
       <Tab.Screen name="Discover" component={SearchNavigator} />
       {/* <Tab.Screen name="Notification" component={LiveEndedScreen} /> */}
       <Tab.Screen name="Profile" component={LiveEndedScreen} />

@@ -35,7 +35,7 @@ export default class ImagePickerExample extends React.Component {
               opacity: 0.9
             }} />
           </Fragment> :
-          <><Image source={SelectImage} style={{ 
+          <><Image source={ this.props.imageUri ? { uri: this.props.imageUri } : SelectImage} style={{ 
               resizeMode: 'contain', 
               width: 90,
               height: 90,

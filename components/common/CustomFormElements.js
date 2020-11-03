@@ -3,7 +3,6 @@ import { TextInput, View, StyleSheet } from 'react-native';
 import { Checkbox } from 'react-native-paper';
 import IconTextInput from './IconTextInput/IconTextInput'; 
 
-console.log({ IconTextInput })
 export function CustomTextInput(props) {
 
     return (
@@ -24,6 +23,8 @@ export function CustomTextInput(props) {
             editable={props.editable}
             autoCorrect={props.autoCorrect || false}
             maxLength={props.maxLength}
+            numberOfLines={props.numberOfLines}
+            selectTextOnFocus={props.selectTextOnFocus}
         />
     )
 }

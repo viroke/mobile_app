@@ -66,9 +66,11 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSCameraUsageDescription</key>
-	<string>AwesomeProject requires access to your phone’s camera.</string>
+	<string>Viroke needs camera access to help you stream live.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>AwesomeProject requires access to your phone’s Microphone.</string>
+	<string>Viroke needs microphone access to help you add voice to live.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Viroke needs photos access for photo uploads.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>WorkSans-Black.ttf</string>
